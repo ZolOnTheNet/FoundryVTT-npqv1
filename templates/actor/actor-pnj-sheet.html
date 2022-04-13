@@ -2,7 +2,7 @@
 
   {{!-- Sheet Header --}}
   <header class="sheet-header">
-    <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100"/>
+    <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="200" width="200"/>
     <div class="header-fields">
       <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name"/></h1>
       {{!-- The grid classes are defined in scss/global/_grid.scss. To use,
@@ -32,11 +32,24 @@
         </div>
 
         <div class="resource flex-group-center">
-          <label for="data.cr" class="resource-label">CR / XP</label>
+          <label for="data.attrder.chance" class="resource-label">Chance</label>
           <div class="resource-content flexrow flex-center flex-between">
-            <input type="text" name="data.cr" value="{{data.cr}}" data-dtype="Number"/>
-            <span> / </span>
-            <input type="text" disabled="true" name="data.xp" value="{{data.xp}}" data-dtype="Number"/>
+            <input type="text" name="data.attrder.chance" value="{{data.attrder.chance}}" data-dtype="Number"/>
+            
+          </div>
+        </div>
+
+        <div class="resource flex-group-center">
+          <label for="data.attrder.Heroisme" class="resource-label">Héroïsme</label>
+          <div class="resource-content flexrow flex-center flex-between">
+            <input type="text" name="data.attrder.Heroisme" value="{{data.attrder.Heroisme}}" data-dtype="Number"/>
+          </div>
+        </div>
+
+        <div class="resource flex-group-center">
+          <label for="data.XP" class="resource-label">XP</label>
+          <div class="resource-content flexrow flex-center flex-between">
+            <input type="text" name="data.XP" value="{{data.XP}}" data-dtype="Number"/>
           </div>
         </div>
 

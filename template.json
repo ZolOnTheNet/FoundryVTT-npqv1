@@ -13,53 +13,108 @@
           "min": 0,
           "max": 5
         },
-        "biography": ""
+        "biography": "",
+        "XP":0
       },
       "attr": {
         "attributs" : {
           "for": {
-            "value": "D120"
+            "value": "D120",
+            "label":"force",
+            "abrv":"For"
           },
           " ag": {
-            "value": "D120"
-          },
+            "value": "D120",
+            "label":"Agilité",
+            "abrv":"Ag"
+         },
           "con": {
-            "value": "D120"
+            "value": "D120",
+            "label":"Constitution",
+            "abrv":"Con"
           },
           "it": {
-            "value": "D120"
+            "value": "D120",
+            "label":"Intuition",
+            "abrv":"It"
           },
           "ig": {
-            "value": "D120"
+            "value": "D120",
+            "label":"Itelligence",
+            "abrv":"Ig"
           },
           "v": {
-            "value": "D120"
+            "value": "D120",
+            "label":"Volonté",
+            "abrv":"Vo"
           },
           "p": {
-            "value": "D120"
+            "value": "D120",
+            "label":"Présence",
+            "abrv":"Pre"
           }
         }
       },
       "attrb":{
         "attrder": {
-          "dom":0,
-          "domInit":0,
-          "pinit_base":3,
-          "pinit_finaux":3,
-          "pinit_des":"2d6",
-          "chance":5,
-          "Heroisme":1,
-          "ScProg":2,
-          "DeProg":"D4",
-          "mvtBase":2,
-          "mvtAct":2,
-          "reputation":0  
+          "dom":{
+            "value": 0,
+            "label":"Bonus aux Dommages",
+            "abrv":"dom"
+          },
+          "domInit":{
+            "value": 0,
+            "label":"Bonus Init",
+            "abrv":"dom. Init."
+          },
+          "pinit_base":{
+            "value": "3",
+            "label":"Points d'Init de base",
+            "abrv":"PInitBase"
+          },
+          "pinit_finaux":{
+            "value": 3,
+            "label":"Points d'init total",
+            "abrv":"PInitTot"
+          },
+          "pinit_des":{
+            "value": "2D6",
+            "label":"Dé d'init",
+            "abrv":"PInitDes"
+          },
+          "ScProg": {
+            "value": 2,
+            "label":"Point de Progession",
+            "abrv":"ScProg"
+          },
+          "DeProg":{
+            "value": "D4",
+            "label":"Dé de Progession",
+            "abrv":"DeProg"
+          },
+          "mvtBase":{
+            "value": 2,
+            "label":"Mouvement",
+            "abrv":"MvtBase"
+          },
+          "mvtAct":{
+            "value": 2,
+            "label":"Mouvement Actuel",
+            "abrv":"MvtAct"
+          },
+          "reputation":{
+            "value": 0,
+            "label":"Réputation",
+            "abrv":"Reput"
+          }  
         }
       }
     },
     "pj": {
       "templates": ["base","attr","attrb"],
-      "ethnie":""
+      "ethnie":"",
+      "chance":5,
+      "Heroisme":1
     },
     "pnj": {
       "templates": ["base", "attr", "attrb"],

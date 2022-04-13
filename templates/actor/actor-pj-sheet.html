@@ -2,38 +2,118 @@
 
   {{!-- Sheet Header --}}
   <header class="sheet-header">
-    <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100"/>
+    <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="200" width="200"/>
     <div class="header-fields">
       <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name"/></h1>
-        <div class="resources grid grid-2col">
-          <div class="resource flex-group-center">
-            <label for="data.PdV.value" class="resource-label">Points de Vie</label>
-            <div class="resource-content flexrow flex-center flex-between">
-              <input type="text" name="data.PdV.value" value="{{data.PdV.value}}" data-dtype="Number"/>
-              <span> / </span>
-              <input type="text" name="data.PdV.max" value="{{data.PdV.max}}" data-dtype="Number"/>
-            </div>
+      <h2 class="charname"><input name="data.ethnie" type="text" value="{{data.ethnie}}" placeholder="ethnie"/></h2>
+      <div class="resources grid grid-5col">
+        <div class="resource flex-group-center">
+          <label for="data.PdV.value" class="resource-label">Points de Vie</label>
+          <div class="resource-content flexrow flex-center flex-between">
+            <input type="text" name="data.PdV.value" value="{{data.PdV.value}}" data-dtype="Number"/>
+            <span> / </span>
+            <input type="text" name="data.PdV.max" value="{{data.PdV.max}}" data-dtype="Number"/>
           </div>
+        </div>
 
-          <div class="resource flex-group-center">
-            <label for="data.PdM.value" class="resource-label">Points de Magie</label>
-            <div class="resource-content flexrow flex-center flex-between">
-              <input type="text" name="data.PdM.value" value="{{data.PdM.value}}" data-dtype="Number"/>
-              <span> / </span>
-              <input type="text" name="data.PdM.max" value="{{data.PdM.max}}" data-dtype="Number"/>
-            </div>
+        <div class="resource flex-group-center">
+          <label for="data.PdM.value" class="resource-label">Pts de Magie</label>
+          <div class="resource-content flexrow flex-center flex-between">
+            <input type="text" name="data.PdM.value" value="{{data.PdM.value}}" data-dtype="Number"/>
+            <span> / </span>
+            <input type="text" name="data.PdM.max" value="{{data.PdM.max}}" data-dtype="Number"/>
           </div>
+        </div>
+
+        <div class="resource flex-group-center">
+          <label for="data.Heroisme" class="resource-label">Pts de Héro</label>
+          <div class="resource-content flexrow flex-center flex-between">
+            <input type="text" name="data.Heroisme" value="{{data.Heroisme}}" data-dtype="Number"/>
+          </div>
+        </div>
+
+        <div class="resource flex-group-center">
+          <label for="data.chance" class="resource-label">Pts de Chance</label>
+          <div class="resource-content flexrow flex-center flex-between">
+            <input type="text" name="data.chance" value="{{data.chance}}" data-dtype="Number"/>
+          </div>
+        </div>
+
+        <div class="resource flex-group-center">
+          <label for="data.XP" class="resource-label">XP</label>
+          <div class="resource-content flexrow flex-center flex-between">
+            <input type="text" name="data.XP" value="{{data.XP}}" data-dtype="Number"/>
+          </div>
+        </div>
       </div>
     </div>
   </header>
-  <div class="abilities flexcol">
-    {{#each data.attributs as |ability key|}}
-    <div class="ability flexrow flex-group-center">
-      <label for="data.attributs.{{key}}.value" class="resource-label rollable flexlarge align-left" data-roll="d20+@abilities.{{key}}.mod" data-label="{{ability.label}}">{{ability.label}}</label>
-      <input type="text" name="data.attributs.{{key}}.value" value="{{ability.value}}" data-dtype="Number"/>
-      <span class="ability-mod rollable" data-roll="d20+@attributs.{{key}}.mod" data-label="{{ability.label}}">{{numberFormat ability.mod decimals=0 sign=true}}</span>
+  
+  {{!-- Sheet Tab Navigation --}}
+  <nav class="sheet-tabs tabs" data-group="primary">
+    {{!-- Default tab is specified in actor-sheet.mjs --}}
+    <a class="item" data-tab="features">Principale</a>
+    <a class="item" data-tab="competences">Dom. et Cmp.</a>
+    <a class="item" data-tab="secrets">Secrets</a>
+    <a class="item" data-tab="items">Equipements</a>
+    <a class="item" data-tab="effects">Effects</a>
+  </nav>
+
+  {{!-- Sheet Body --}}
+  <section class="sheet-body">
+
+    {{!-- Owned Features Tab --}}
+    <div class="tab features" data-group="primary" data-tab="features">
+      <section class="grid grid-3col">
+        <aside class="sidebar">
+
+          <div class="abilities flexcol">
+            {{#each data.attributs as |attrib key|}}
+            <div class="attrib flexrow flex-group-center">
+              <label for="attrib.value" class="resource-label rollable flexlarge align-left" data-roll=" data-label="{{attrib.label}}">{{attrib.label}}</label>
+              <input type="text" name="attrib.value" value="{{attrib.value}}" data-dtype="Number"/>
+              <span class="attrib-mod rollable" data-roll="{{attrib.value}} data-label="{{attrib}}">{{attrib.value}}</span>
+            </div>
+            {{/each}}
+          </div>
+        </aside>
+
+        <section class="main flexcol">
+          {{#each data.attrder as |attribd key|}}
+          <div class="attribd flexrow flex-group-center">
+            <label for="attribd.value" class="resource-label rollable flexlarge align-left" data-roll="" data-label="{{attribd.abrv}}">{{attribd.abrv}}</label>
+            <input type="text" name="attribd.value" value="{{attribd.value}}" data-dtype="Number"/>
+            <span class="attrib-mod rollable" data-roll="{{attribd.value}} data-label="{{attrib}}">{{attribd.value}}</span>
+          </div>
+          {{/each}}        
+        </section>
+        <section class="biography flexcol">
+          {{editor content=data.biography target="data.biography" rollData=rollData button=true owner=owner editable=editable}}    
+        </section>
+      </section>
     </div>
-    {{/each}}
-  </div>
+
+    {{!-- Owned Items Tab --}}
+    <div class="tab items" data-group="primary" data-tab="items">
+       {{> "systems/npqv1/templates/actor/parts/actor-items.html"}}
+    </div>
+
+    {{!-- Owned Competences, Domaines et Sortilèges Tab --}}
+    <div class="tab competences" data-group="primary" data-tab="competences">
+      > "systems/npqv1/templates/actor/parts/actor-competences.html"
+    </div>
+
+    {{!-- Secret possédée --}}
+    <div class="tab secrets" data-group="primary" data-tab="secrets">
+      {{> "systems/npqv1/templates/actor/parts/actor-secrets.html"}}
+    </div>
+
+    {{!-- Active Effects Tab --}}
+    <div class="tab effects flexcol" data-group="primary" data-tab="effects">
+      {{> "systems/npqv1/templates/actor/parts/actor-effects.html"}}
+    </div>
+
+  </section>
+
 </form>
 

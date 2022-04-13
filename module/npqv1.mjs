@@ -36,8 +36,8 @@ Hooks.once('init', async function() {
   };
 
   // Define custom Document classes
-  CONFIG.Actor.documentClass = Npqv1Actor;
-  CONFIG.Item.documentClass = Npqv1Item;
+  CONFIG.Actor.documentClass = npqv1Actor;
+  CONFIG.Item.documentClass = npqv1Item;
 
   // Register sheet application classes
   Actors.unregisterSheet("core", ActorSheet);
