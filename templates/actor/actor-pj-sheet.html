@@ -1,0 +1,39 @@
+<form class="{{cssClass}} {{actor.type}} flexcol" autocomplete="off">
+
+  {{!-- Sheet Header --}}
+  <header class="sheet-header">
+    <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="100" width="100"/>
+    <div class="header-fields">
+      <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name"/></h1>
+        <div class="resources grid grid-2col">
+          <div class="resource flex-group-center">
+            <label for="data.PdV.value" class="resource-label">Points de Vie</label>
+            <div class="resource-content flexrow flex-center flex-between">
+              <input type="text" name="data.PdV.value" value="{{data.PdV.value}}" data-dtype="Number"/>
+              <span> / </span>
+              <input type="text" name="data.PdV.max" value="{{data.PdV.max}}" data-dtype="Number"/>
+            </div>
+          </div>
+
+          <div class="resource flex-group-center">
+            <label for="data.PdM.value" class="resource-label">Points de Magie</label>
+            <div class="resource-content flexrow flex-center flex-between">
+              <input type="text" name="data.PdM.value" value="{{data.PdM.value}}" data-dtype="Number"/>
+              <span> / </span>
+              <input type="text" name="data.PdM.max" value="{{data.PdM.max}}" data-dtype="Number"/>
+            </div>
+          </div>
+      </div>
+    </div>
+  </header>
+  <div class="abilities flexcol">
+    {{#each data.attributs as |ability key|}}
+    <div class="ability flexrow flex-group-center">
+      <label for="data.attributs.{{key}}.value" class="resource-label rollable flexlarge align-left" data-roll="d20+@abilities.{{key}}.mod" data-label="{{ability.label}}">{{ability.label}}</label>
+      <input type="text" name="data.attributs.{{key}}.value" value="{{ability.value}}" data-dtype="Number"/>
+      <span class="ability-mod rollable" data-roll="d20+@attributs.{{key}}.mod" data-label="{{ability.label}}">{{numberFormat ability.mod decimals=0 sign=true}}</span>
+    </div>
+    {{/each}}
+  </div>
+</form>
+

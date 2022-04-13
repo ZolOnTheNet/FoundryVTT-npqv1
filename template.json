@@ -1,0 +1,175 @@
+{
+  "Actor": {
+    "types": ["pj", "pnj"],
+    "templates": {
+      "base": {
+        "PdV": {
+          "value": 15,
+          "min": 0,
+          "max": 15
+        },
+        "PdM": {
+          "value": 5,
+          "min": 0,
+          "max": 5
+        },
+        "biography": ""
+      },
+      "attr": {
+        "attributs" : {
+          "for": {
+            "value": "D120"
+          },
+          " ag": {
+            "value": "D120"
+          },
+          "con": {
+            "value": "D120"
+          },
+          "it": {
+            "value": "D120"
+          },
+          "ig": {
+            "value": "D120"
+          },
+          "v": {
+            "value": "D120"
+          },
+          "p": {
+            "value": "D120"
+          }
+        }
+      },
+      "attrb":{
+        "attrder": {
+          "dom":0,
+          "domInit":0,
+          "pinit_base":3,
+          "pinit_finaux":3,
+          "pinit_des":"2d6",
+          "chance":5,
+          "Heroisme":1,
+          "ScProg":2,
+          "DeProg":"D4",
+          "mvtBase":2,
+          "mvtAct":2,
+          "reputation":0  
+        }
+      }
+    },
+    "pj": {
+      "templates": ["base","attr","attrb"],
+      "ethnie":""
+    },
+    "pnj": {
+      "templates": ["base", "attr", "attrb"],
+      "nivTresor": 0
+    }
+  },
+  "Item": {
+    "types": ["objet", "domaine", "sort", "competence", "avantage","ethnie", "secret","argent", "arme_resum"],
+    "objet": {
+      "description": "",
+      "quantity": 1,
+      "weight": 0,
+      "typeArme":"M",
+      "pinitDes": "2d6",
+      "initiative": "2d6 + @pinit_finaux",
+      "bonus":{
+        "score":0,
+        "domage":"+0",
+        "pinit":0,
+        "PdM":0,
+        "PdV":0
+      }
+    },
+    "domaine": {
+      "description": "",
+      "attributd":"for",
+      "score":15,
+      "code":"Dom",
+      "BPro":0,
+      "XPa":0
+    },
+    "competence":{
+      "description":"",
+      "attributd":"for",
+      "score":25,
+      "code":"cmp",
+      "BPro":0,
+      "XPa":0
+    },
+    "sort": {
+      "description": "",
+      "niveau": 1,
+      "coutMagie":1,
+      "nomSort":"fleche",
+      "effet":""
+    },
+    "avantage":{
+      "description": "",
+      "bonus":"",
+      "bonusAffect":""
+    },
+    "ethnie":{
+      "description": "",
+      "nom":"Gent",
+      "urlweb":"https://www-lagep.cpe.fr/public/lemonde2k2/doku.php?id=k2:gents",
+      "secrets":"",
+      "abrv":"gent"
+    },
+    "secret":{
+      "description": "",
+      "nom":"Position sociale",
+      "nomGene":"Position sociale",
+      "niveau":1,
+      "niveauMax":5,
+      "niv1": {
+        "nom":"basse echelle",
+        "description" :"au début de l'échelle sociale",
+        "effet":"1D6 sur la table de l'origine"
+      },
+      "niv2": {
+        "nom":"classe ouvrière",
+        "description" :"famille de travailleur",
+        "effet":"2D6 sur la table de l'origine"
+      },
+      "niv3": {
+        "nom":"classe moyenne basse",
+        "description" :"famille de tecnicien",
+        "effet":"3D6 sur la table de l'origine"
+      },
+      "niv4": {
+        "nom":"classe moyenne",
+        "description" :"famille de chef ou responsable",
+        "effet":"4D6 sur la table de l'origine"
+      },
+      "niv5": {
+        "nom":"classe aisée",
+        "description" :"famille d'ingénieur ou de bourgeois",
+        "effet":"5D6 sur la table de l'origine"
+      }
+    },
+    "argent": {
+      "blanc":0,
+      "demie-perle":0,
+      "demie-lune":0,
+      "perle":0,
+      "lune":0,
+      "orc":0,
+      "emmeraude":0,
+      "pourpre":0
+    },
+    "arme_resum":{
+      "idarmeref":"",
+      "idcmpref":"",
+      "attributd":"for",
+      "score":10,
+      "pinit":0,
+      "resistance":"1",
+      "degat":"1D10",
+      "special":"",
+      "bris":5
+    }
+  }
+}

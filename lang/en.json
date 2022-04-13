@@ -1,0 +1,24 @@
+{
+  "NPQV1.AbilityFor": "Strength",
+  "NPQV1.AbilityAg": "Dexterity",
+  "NPQV1.AbilityCon": "Constitution",
+  "NPQV1.AbilityIg": "Intelligence",
+  "NPQV1.AbilityIt": "Intuition",
+  "NPQV1.AbilityV": "Will",
+  "NPQV1.AbilityP": "Aura",
+
+  "NPQV1.AbilityForAbbr": "Str",
+  "NPQV1.AbilityConAbbr": "Con",
+  "NPQV1.AbilityAgAbbr": "Dex",
+  "NPQV1.AbilityIgAbbr": "Ig",
+  "NPQV1.AbilityItAbbr": "It",
+  "NPQV1.AbilityVAbbr": "Wl",
+  "NPQV1.AbilityPAbbr": "cha",
+
+  "NPQV1.EffectCreate": "Create Effect",
+  "NPQV1.EffectToggle": "Toggle Effect",
+  "NPQV1.EffectEdit": "Edit Effect",
+  "NPQV1.EffectDelete": "Delete Effect",
+
+  "NPQV1.Add": "Add"
+}

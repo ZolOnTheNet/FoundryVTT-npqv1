@@ -1,0 +1,24 @@
+{
+  "NPQV1.AbilityFor": "Force",
+  "NPQV1.AbilityAg": "Agilité",
+  "NPQV1.AbilityCon": "Constitution",
+  "NPQV1.AbilityIg": "Intelligence",
+  "NPQV1.AbilityIt": "Intuition",
+  "NPQV1.AbilityV": "Volonté",
+  "NPQV1.AbilityP": "Présence",
+
+  "NPQV1.AbilityForAbbr": "F",
+  "NPQV1.AbilityConAbbr": "Con",
+  "NPQV1.AbilityAgAbbr": "Ag",
+  "NPQV1.AbilityItAbbr": "It",
+  "NPQV1.AbilityIgAbbr": "Ig",
+  "NPQV1.AbilityVAbbr": "V",
+  "NPQV1.AbilityPAbbr": "P",
+
+  "NPQV1.EffectCreate": "crée un Effect",
+  "NPQV1.EffectToggle": "Change l'Effect",
+  "NPQV1.EffectEdit": "Edition Effect",
+  "NPQV1.EffectDelete": "Suppresion Effect",
+
+  "NPQV1.Add": "Ajoute"
+}

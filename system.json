@@ -1,0 +1,33 @@
+{
+  "name": "npqv1",
+  "title": "NimporteQuoi Systeme",
+  "description": "NPQ est le moteur du jeu médFan Le monde de k², ceci est sont portage pour FoundryVTT!",
+  "version": "0.0.1",
+  "minimumCoreVersion": "9.0.0",
+  "compatibleCoreVersion": "9",
+  "author": "ZolOnTheNet",
+  "esmodules": ["module/npqv1.mjs"],
+  "styles": ["css/npqv1.css"],
+  "scripts": [],
+  "packs": [],
+  "languages": [
+    {
+      "lang": "fr",
+      "name": "Français",
+      "path": "lang/fr.json"
+    },
+    {
+      "lang": "en",
+      "name": "English",
+      "path": "lang/en.json"
+    }
+  ],
+  "gridDistance": 1.5,
+  "gridUnits": "m",
+  "primaryTokenAttribute": "PdV",
+  "secondaryTokenAttribute": "PdM",
+  "url": "https://www-lagep.cpe.fr/public/lemonde2k2/",
+  "manifest": "",
+  "download": "",
+  "license": "LICENSE.txt"
+}
