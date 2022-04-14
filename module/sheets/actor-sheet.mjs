@@ -10,9 +10,9 @@ export class npqv1ActorSheet extends ActorSheet {
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
       classes: ["npqv1", "sheet", "actor"],
-      template: "systems/npqv1/templates/actor/actor-sheet.html",
-      width: 600,
-      height: 600,
+      template: "systems/npqv1/templates/actor/actor-pj-sheet.html",
+      width: 590,
+      height: 519,
       tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "features" }]
     });
   }
@@ -85,6 +85,8 @@ export class npqv1ActorSheet extends ActorSheet {
     // Initialize containers.
     const gear = [];
     const features = [];
+    const domaines = [];
+    const competences = [];
     const spells = {
       0: [],
       1: [],
@@ -105,6 +107,12 @@ export class npqv1ActorSheet extends ActorSheet {
       if (i.type === 'item') {
         gear.push(i);
       }
+      else if (i.type === 'domaine') {
+        domaines.push(i);
+      } 
+      else if (i.type === 'competence'){
+        competences.push(i);
+      }
       // Append to features.
       else if (i.type === 'feature') {
         features.push(i);
@@ -121,7 +129,10 @@ export class npqv1ActorSheet extends ActorSheet {
     context.gear = gear;
     context.features = features;
     context.spells = spells;
+    context.domaines = domaines;
+    context.competences = competences;
   }
+
 
   /* -------------------------------------------- */
 

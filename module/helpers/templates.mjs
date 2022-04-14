@@ -11,5 +11,7 @@
     "systems/npqv1/templates/actor/parts/actor-items.html",
     "systems/npqv1/templates/actor/parts/actor-spells.html",
     "systems/npqv1/templates/actor/parts/actor-effects.html",
+    "systems/npqv1/templates/actor/parts/actor-secrets.html",
+    "systems/npqv1/templates/actor/parts/actor-competences.html"
   ]);
 };
