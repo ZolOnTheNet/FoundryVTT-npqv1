@@ -157,11 +157,14 @@
       "XPa":0
     },
     "sort": {
+      "codeSpe":"",
+      "idLien":"",
       "description": "Petit texte de présentation du sortilège, pour être mise en dessous de la ligne sur la feuille de joueur (ou de PNJ). La description rapide s'arrête au premier point, veuillez garder a peu près cette largeur pour ne faire qu'une ligne.",
       "niveau": 1,
       "coutMagie":1,
-      "nomSort":"fleche",
-      "effet":""
+      "effet":"",
+      "score":10,
+      "attributd":"ig"
     },
     "avantage":{
       "description": "Petit texte de présentation de l'avantage ou désavantage. Pour être mise en dessous de la ligne sur la feuille de joueur (ou de PNJ). La description rapide s'arrête au premier point, veuillez garder a peu près cette largeur pour ne faire qu'une ligne.",
@@ -179,7 +182,7 @@
       "description": "",
       "nom":"Position sociale",
       "nomGene":"Position sociale",
-      "niveau":1,
+      "niveau":0,
       "niveauMax":5,
       "niv1": {
         "nom":"basse echelle",

@@ -11,7 +11,7 @@ export class npqv1ActorSheet extends ActorSheet {
     return mergeObject(super.defaultOptions, {
       classes: ["npqv1", "sheet", "actor"],
       template: "systems/npqv1/templates/actor/actor-pj-sheet.html",
-      width: 590,
+      width: 622,
       height: 519,
       tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "features" }]
     });
@@ -51,6 +51,9 @@ export class npqv1ActorSheet extends ActorSheet {
       this._prepareItems(context);
     }
 
+    for (let att in context.data.attributs) {
+        context.data.attributs[att].code = att;
+    }
     // Add roll data for TinyMCE editors.
     context.rollData = context.actor.getRollData();
 
@@ -127,9 +130,17 @@ export class npqv1ActorSheet extends ActorSheet {
         features.push(i);
       }
       // Append to spells.
-      else if (i.type === 'spell') {
-        if (i.data.spellLevel != undefined) {
-          spells[i.data.spellLevel].push(i);
+      else if (i.type === 'sort') {
+        i.data.descRapide = (i.data.description+".").substring(0,i.data.description.indexOf("."))
+        if(i.data.idLien != ""){
+          // calcul si spécialisation
+          let it = context.actor.items.get(i.data.idLien);
+          i.data.scoreRel = i.data.score + it.data.data.score;
+        }else {
+          i.data.scoreRel = i.data.score;
+        }
+        if (i.data.niveau != undefined) {
+          spells[i.data.niveau].push(i);
         }
       }
     }
@@ -236,7 +247,7 @@ export class npqv1ActorSheet extends ActorSheet {
 
     // Handle rolls that supply the formula directly.
     if (dataset.roll) {
-      let label = dataset.label ? `[ability] ${dataset.label}` : '';
+      let label = dataset.label ? `[Attribut] ${dataset.label}` : '';
       let roll = new Roll(dataset.roll, this.actor.getRollData());
       roll.toMessage({
         speaker: ChatMessage.getSpeaker({ actor: this.actor }),

@@ -54,6 +54,7 @@
     {{!-- Default tab is specified in actor-sheet.mjs --}}
     <a class="item" data-tab="features">Principale</a>
     <a class="item" data-tab="competences">Dom. et Cmp.</a>
+    <a class="item" data-tab="sorts">Sortilèges.</a>
     <a class="item" data-tab="secrets">Secrets</a>
     <a class="item" data-tab="items">Equipements</a>
     <a class="item" data-tab="effects">Effects</a>
@@ -70,9 +71,11 @@
           <div class="abilities flexcol">
             {{#each data.attributs as |attrib key|}}
             <div class="attrib flexrow flex-group-center">
-              <label for="attrib.value" class="resource-label rollable flexlarge align-left" data-roll=" data-label="{{attrib.label}}">{{attrib.label}}</label>
-              <input type="text" name="attrib.value" value="{{attrib.value}}" data-dtype="Number"/>
-              <span class="attrib-mod rollable" data-roll="{{attrib.value}} data-label="{{attrib}}">{{attrib.abrv}}</span>
+              <label for="attrib.value" class="resource-label rollable flexlarge align-left" data-roll="{{attrib.value}}" data-label="Jet de {{attrib.label}}">{{attrib.label}}</label>
+              <select name="data.attributs.{{attrib.code}}.value">
+                {{selectOptions ../LstDes selected=attrib.value}}
+              </select>  
+              <span class="attrib-mod rollable" data-roll="{{attrib.value}}" data-label="Jet en {{attrib.label}}">{{attrib.abrv}}</span>
             </div>
             {{/each}}
           </div>
@@ -103,6 +106,10 @@
       {{> "systems/npqv1/templates/actor/parts/actor-competences.html"}}
     </div>
 
+    {{!--  Sortilèges Tab --}}
+    <div class="tab sorts" data-group="primary" data-tab="sorts">
+      {{> "systems/npqv1/templates/actor/parts/actor-sorts.html"}}
+    </div>
     {{!-- Secret possédée --}}
     <div class="tab secrets" data-group="primary" data-tab="secrets">
       {{> "systems/npqv1/templates/actor/parts/actor-secrets.html"}}
