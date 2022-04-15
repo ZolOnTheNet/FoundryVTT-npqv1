@@ -38,15 +38,36 @@ export class npqv1ItemSheet extends ItemSheet {
 
     // Retrieve the roll data for TinyMCE editors.
     context.rollData = {};
+    context.A1Acteur = false;
+    context.NomCmpV =  "";
+    context.NomCode = "";
     let actor = this.object?.parent ?? null;
     if (actor) {
       context.rollData = actor.getRollData();
+      let lesDomaines = actor.data.items.filter(item => item.type === "domaine");
+      let lesCmp = actor.data.items.filter(item => item.type === "competences");
+      let CmpV = new Object();
+      CmpV[""]="aucune";
+      for( let dom of lesDomaines){
+        CmpV[dom.data._id] = dom.data.data.code;
+      }
+      for( let cmp of lesCmp){
+        CmpV[cmp.data._id] = cmp.data.data.code;
+      }
+      context.CmpV = CmpV;
+      if(context.data.data.idLien===undefined) context.data.data.idLien = "";
+      if(context.data.data.idLien !=="") {
+        let it =actor.data.items.get(context.data.data.idLien);
+        context.NomCmp = it.name ;
+        context.NomCode = it.data.data.code ;
+      }
+      context.A1Acteur = true;
     }
 
     // Add the actor's data to context.data for easier access, as well as flags.
     context.data = itemData.data;
     context.flags = itemData.flags;
-    context.AttribV = { "for":"Force", "ag":"Agilité", "con":"Constit.", "p":"Présence", "ig":"Intelligence", "it":"Intuition", "v":"Volonté" };
+    context.AttribV = { "for":"Force", "ag":"Agilité", "con":"Constitution", "p":"Présence", "ig":"Intelligence", "it":"Intuition", "v":"Volonté" };
 //    data.TypeValue = persodata.type; 
     return context;
   }

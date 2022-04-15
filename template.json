@@ -139,7 +139,7 @@
       }
     },
     "domaine": {
-      "description": "<p>Votre description ici</p><br><p></p>",
+      "description": "Petit texte de présentation du domaine. Il est en format simple pour être mis sans difficulté en dessous de la ligne sur la feuille de joueur (ou de PNJ). La description rapide s'arrête au premier point, veuillez garder a peu près cette largeur pour ne faire qu'une ligne.",
       "attributd":"for",
       "score":15,
       "code":"Dom",
@@ -147,7 +147,9 @@
       "XPa":0
     },
     "competence":{
-      "description":"",
+      "codeSpe":"",
+      "idLien":"",
+      "description":"Petit texte de présentation de la compétence, pour être mise en dessous de la ligne sur la feuille de joueur (ou de PNJ). La description rapide s'arrête au premier point, veuillez garder a peu près cette largeur pour ne faire qu'une ligne.",
       "attributd":"for",
       "score":25,
       "code":"cmp",
@@ -155,14 +157,14 @@
       "XPa":0
     },
     "sort": {
-      "description": "",
+      "description": "Petit texte de présentation du sortilège, pour être mise en dessous de la ligne sur la feuille de joueur (ou de PNJ). La description rapide s'arrête au premier point, veuillez garder a peu près cette largeur pour ne faire qu'une ligne.",
       "niveau": 1,
       "coutMagie":1,
       "nomSort":"fleche",
       "effet":""
     },
     "avantage":{
-      "description": "",
+      "description": "Petit texte de présentation de l'avantage ou désavantage. Pour être mise en dessous de la ligne sur la feuille de joueur (ou de PNJ). La description rapide s'arrête au premier point, veuillez garder a peu près cette largeur pour ne faire qu'une ligne.",
       "bonus":"",
       "bonusAffect":""
     },
