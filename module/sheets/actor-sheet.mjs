@@ -56,7 +56,10 @@ export class npqv1ActorSheet extends ActorSheet {
 
     // Prepare active effects
     context.effects = prepareActiveEffectCategories(this.actor.effects);
-
+    context.AttribV = { "for":"Force", "ag":"Agilité", "con":"Constitution", "p":"Présence", "ig":"Intelligence", "it":"Intuition", "v":"Volonté" };
+    context.LstDes = { "D300":"D300", "D250":"D250","D200":"D200","D150":"D150","D120":"D120","D100":"D100","D80":"D80","D60":"D60","D50":"D50","D40":"D40"}
+    console.log("NPQv1| context:");
+    console.log(context)
     return context;
   }
 
@@ -88,16 +91,11 @@ export class npqv1ActorSheet extends ActorSheet {
     const domaines = [];
     const competences = [];
     const spells = {
-      0: [],
       1: [],
       2: [],
       3: [],
       4: [],
-      5: [],
-      6: [],
-      7: [],
-      8: [],
-      9: []
+      5: []
     };
 
     // Iterate through items, allocating to containers
@@ -108,9 +106,20 @@ export class npqv1ActorSheet extends ActorSheet {
         gear.push(i);
       }
       else if (i.type === 'domaine') {
+        // on lui ajoute le résumé (pour l'instant jusqu'au premier point)
+        i.data.descRapide = (i.data.description+".").substring(0,i.data.description.indexOf("."));
         domaines.push(i);
       } 
       else if (i.type === 'competence'){
+        i.data.descRapide = (i.data.description+".").substring(0,i.data.description.indexOf("."))
+        if(i.data.idLien != ""){
+          // calcul si spécialisation
+          let it = context.actor.items.get(i.data.idLien);
+          i.data.scoreRel = i.data.score + it.data.data.score;
+        }else {
+          i.data.scoreRel = i.data.score;
+        }
+        
         competences.push(i);
       }
       // Append to features.
