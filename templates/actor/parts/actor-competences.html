@@ -4,21 +4,30 @@
         {{!-- "domaine": {"description": "","attributd":"for","score":15,"code":"Dom","BPro":0,"XPa":0},--}}
         <table>
             <tr>
-                <th width="41%">Nom<br>--Code</th>
-                <th  width="35%">Mini-Descption</th>
-                <th  width="7%">Att.</th>
-                <th  width="7%">Score</th>
-                <th  width="7%">BPro</th>
-                <th  width="7%">XPa</th>
+                <th width="65%" text-align="left">Nom--Code</th>
+                <th  width="7%" text-align="center">Att.</th>
+                <th  width="7%" text-align="center">Score</th>
+                <th  width="7%" text-align="center">BPro</th>
+                <th  width="7%" text-align="center">XPa</th>
+                <th  width="7%" text-align="center">Act.</th>
             </tr>
-        {{#each data.domaines as |cmp key|}}
-            <tr>
-
+        {{#each domaines as |cmp key|}}
+            <tr class="item" data-item-id="{{cmp._id}}">
+                <td><b>>{{key}}-{{cmp.name}}</b> [{{cmp.data.code}}]</td>
+                <td>{{cmp.data.attributd}}</td>
+                <td>{{cmp.data.score}}</td>
+                <td>{{cmp.data.BPro}}</td>
+                <td>{{cmp.data.XPa}}</td>
+                <td class="item-controls">
+                    <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
+                    <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
+                </td>
             </tr>
+            
         {{/each}}
         </table>
         <h2>Compétences</h2>
-        {{!-- "compe2tence":{"description":"","attributd":"for","score":25,"code":"cmp","BPro":0,"XPa":0 --}}
+        {{!-- "compétence":{"description":"","attributd":"for","score":25,"code":"cmp","BPro":0,"XPa":0 --}}
         <table>
             <tr>
                 <th width="41%">Nom<br>--Code</th>
@@ -27,8 +36,9 @@
                 <th  width="7%">Score</th>
                 <th  width="7%">BPro</th>
                 <th  width="7%">XPa</th>
+
            </tr>
-        {{#each data.competences as |cmp key|}}
+        {{#each competences as |cmp key|}}
         <tr>
 
         </tr>

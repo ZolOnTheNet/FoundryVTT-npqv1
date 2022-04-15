@@ -139,7 +139,7 @@
       }
     },
     "domaine": {
-      "description": "",
+      "description": "<p>Votre description ici</p><br><p></p>",
       "attributd":"for",
       "score":15,
       "code":"Dom",

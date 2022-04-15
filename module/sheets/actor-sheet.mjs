@@ -56,7 +56,8 @@ export class npqv1ActorSheet extends ActorSheet {
 
     // Prepare active effects
     context.effects = prepareActiveEffectCategories(this.actor.effects);
-
+    console.log("NPQv1| context:");
+    console.log(context)
     return context;
   }
 
