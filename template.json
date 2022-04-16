@@ -211,21 +211,23 @@
     },
     "argent": {
       "blanc":0,
-      "demie-perle":0,
-      "demie-lune":0,
+      "demiePerle":0,
+      "demieLune":0,
       "perle":0,
       "lune":0,
       "orc":0,
       "emmeraude":0,
-      "pourpre":0
+      "pourpre":0,
+      "autres":""
     },
     "arme_resum":{
       "idarmeref":"",
       "idcmpref":"",
+      "desync":0,
       "attributd":"for",
       "score":10,
-      "pinit":0,
-      "resistance":"1",
+      "jetinit":"2D6",
+      "resistance":1,
       "degat":"1D10",
       "special":"",
       "bris":5
