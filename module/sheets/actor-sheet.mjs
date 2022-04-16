@@ -11,7 +11,7 @@ export class npqv1ActorSheet extends ActorSheet {
     return mergeObject(super.defaultOptions, {
       classes: ["npqv1", "sheet", "actor"],
       template: "systems/npqv1/templates/actor/actor-pj-sheet.html",
-      width: 622,
+      width: 655,
       height: 519,
       tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "features" }]
     });
@@ -93,6 +93,7 @@ export class npqv1ActorSheet extends ActorSheet {
     const features = [];
     const domaines = [];
     const competences = [];
+    const secrets = [];
     const spells = {
       1: [],
       2: [],
@@ -129,6 +130,12 @@ export class npqv1ActorSheet extends ActorSheet {
       else if (i.type === 'feature') {
         features.push(i);
       }
+      else if (i.type === 'secret') {
+        if(i.data.niveau >0 && i.data.niveau < i.data.niveauMax) {
+          i.data.nomMax = i.data["niv"+i.data.niveau].nom;  
+        } else  i.data.nomMax = "";""
+        secrets.push(i);
+      }
       // Append to spells.
       else if (i.type === 'sort') {
         i.data.descRapide = (i.data.description+".").substring(0,i.data.description.indexOf("."))
@@ -151,6 +158,7 @@ export class npqv1ActorSheet extends ActorSheet {
     context.spells = spells;
     context.domaines = domaines;
     context.competences = competences;
+    context.secrets = secrets;
   }
 
 
@@ -212,7 +220,7 @@ export class npqv1ActorSheet extends ActorSheet {
     // Grab any data associated with this control.
     const data = duplicate(header.dataset);
     // Initialize a default name.
-    const name = `New ${type.capitalize()}`;
+    const name = `Nouveau ${type.capitalize()}`;
     // Prepare the item object.
     const itemData = {
       name: name,

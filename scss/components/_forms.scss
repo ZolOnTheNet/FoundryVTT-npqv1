@@ -39,11 +39,16 @@
 }
 
 .sheet-body,
-.sheet-body .tab,
-.sheet-body .tab .editor {
+.sheet-body .tab {
   height: 100%;
 }
 
+.sheet-body .tab .editor {
+  overflow: hidden;
+  min-height: calc(100% - 225px);
+  height: calc(100% - 225px);
+  max-height: calc(100% - 225px);
+}
 .tox {
   .tox-editor-container {
     background: $c-white;

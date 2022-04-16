@@ -10,7 +10,7 @@ export class npqv1ItemSheet extends ItemSheet {
       classes: ["npqv1", "sheet", "item"],
       width: 520,
       height: 480,
-      tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description" }]
+      tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "attributes" }]
     });
   }
 
@@ -64,6 +64,13 @@ export class npqv1ItemSheet extends ItemSheet {
       context.A1Acteur = true;
     }
 
+    if(context.data.type == "secret") { // utilise editor
+      if(itemData.data.description == "") itemData.data.description= "initialiser<br> et 1<br> et 2<br>et 3<br>";
+      for(let i = 1; i < itemData.data.niveauMax; i++ ) {
+        if(itemData.data["niv"+i].description == "") itemData.data["niv"+i].description= "initialiser<br> et 1<br> et 2<br>et 3<br>";  
+        if(itemData.data["niv"+i].effet == "") itemData.data["niv"+i].effet= "initialiser<br> et 1<br> et 2<br>et 3<br>";  
+      }
+    }
     // Add the actor's data to context.data for easier access, as well as flags.
     context.data = itemData.data;
     context.flags = itemData.flags;

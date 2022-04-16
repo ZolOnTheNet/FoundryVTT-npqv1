@@ -291,7 +291,20 @@
 .boilerplate .sheet-body,
 .boilerplate .sheet-body .tab,
 .boilerplate .sheet-body .tab .editor {
+  margin: 0;
+  overflow: hidden;
+  min-height: calc(100% - 225px);
+  height: calc(100% - 225px);
+  max-height: calc(100% - 225px);
+}
+
+.editor,
+.sheet .editor-content {
+  margin: 0;
+  overflow: hidden;
+  min-height: 500
   height: 100%;
+  max-height: 100%;
 }
 
 .boilerplate .tox .tox-editor-container {

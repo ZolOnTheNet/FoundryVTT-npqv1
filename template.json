@@ -179,9 +179,8 @@
       "abrv":"gent"
     },
     "secret":{
-      "description": "",
-      "nom":"Position sociale",
       "nomGene":"Position sociale",
+      "description": "",
       "niveau":0,
       "niveauMax":5,
       "niv1": {
