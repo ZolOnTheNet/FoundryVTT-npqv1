@@ -94,6 +94,7 @@ export class npqv1ActorSheet extends ActorSheet {
     const domaines = [];
     const competences = [];
     const secrets = [];
+    const ArmesResum = [];
     const spells = {
       1: [],
       2: [],
@@ -135,6 +136,48 @@ export class npqv1ActorSheet extends ActorSheet {
           i.data.nomMax = i.data["niv"+i.data.niveau].nom;  
         } else  i.data.nomMax = "";""
         secrets.push(i);
+      }
+      // ajouter dans les résumés des armes
+      else if( i.type === 'arme_resum'){
+        i.data.descRapide = (i.data.special+".").substring(0,i.data.description.indexOf('.'));
+        i.data.NomAffiche = "";
+        if(i.data.desync == 0) {
+          i.data.score = 0;
+          i.data.jetinit = "";
+          i.data.degat ="";
+          i.data.bris = -1;
+        }
+        if(i.data.idarmeref !== "") {
+          let a = context.items.get(i.data.idarmeref);
+          if(a !== undefined){
+            // si synchro alors on ajouter les bonus 
+            i.data.NomAffiche = a.name;
+            if(i.data.desync == 0) {
+              if(a.data.initiative ===""){
+                i.data.jetinit = a.data.data.pinitdes + "+ (" +a.data.bonus.pinit +")";
+              } else {
+                i.data.jetinit = a.data.data.initiative; // l'initiative de l'arme modifié
+              }
+              i.data.score = i.data.score + a.data.data.bonus.score;
+              i.data.bris = a.data.data.bris; // a mettre dans objet
+              i.data.resistance = a.data.data.resistance // a metrte dans objet
+              i.degat = a.data.data.dommage ;
+              if(a.data.data.bonus.dommage !="+0") i.degat = i.degat + " +("+a.data.data.bonus.dommage+")";
+            }
+          } 
+        }
+        if(i.data.idcmpref){
+          let c = context.items.get(i.data.idarmeref);
+          if(c !== undefined){
+            i.data.NomAffiche = i.data.NomAffiche + "("+c.name+")";
+            i.data.BPro = c.data.data.BPro;
+            // calcul
+            if(i.data.desync == 0) {
+              i.data.score = i.data.score + c.data.data.score;
+            }    
+          } 
+        }
+        ArmesResum.push(i);
       }
       // Append to spells.
       else if (i.type === 'sort') {

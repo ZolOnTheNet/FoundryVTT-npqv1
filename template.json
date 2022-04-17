@@ -125,18 +125,24 @@
     "types": ["objet", "domaine", "sort", "competence", "avantage","ethnie", "secret","argent", "arme_resum"],
     "objet": {
       "description": "",
-      "quantity": 1,
-      "weight": 0,
-      "typeArme":"M",
-      "pinitDes": "2d6",
-      "initiative": "2d6 + @pinit_finaux",
+      "utilisation": "",
+      "quantite": 1,
+      "poids": 0,
+      "volume" : 0,
+      "typeObjet":"O",
+      "pinitDes": "",
+      "initiative": "",
+      "dommage":"",
+      "bris":"",
+      "resistance":"",
       "bonus":{
         "score":0,
-        "domage":"+0",
+        "dommage":"+0",
         "pinit":0,
         "PdM":0,
         "PdV":0
-      }
+      },
+      "special":""
     },
     "domaine": {
       "description": "Petit texte de présentation du domaine. Il est en format simple pour être mis sans difficulté en dessous de la ligne sur la feuille de joueur (ou de PNJ). La description rapide s'arrête au premier point, veuillez garder a peu près cette largeur pour ne faire qu'une ligne.",
@@ -230,7 +236,8 @@
       "resistance":1,
       "degat":"1D10",
       "special":"",
-      "bris":5
+      "bris":5,
+      "munitions":-1
     }
   }
 }

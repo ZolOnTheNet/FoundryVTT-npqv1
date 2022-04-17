@@ -6,8 +6,7 @@
     </div>
   </header>
   <section class="sheet-body">
-    <h2>Petites monnaies</h2>
-    
+    <h2>Liaison avec un joueur</h2>
     <div class="resources grid grid-3col">
       <div class="resource flex-group-center">
         Ref Arme :<br>
@@ -20,6 +19,7 @@
         {{/if}}
       </div>  
       <div class="resource flex-group-center">
+        Réf compétence : <br>
         {{#if A1Acteur}}
           <select name="data.idcmpref">
             {{selectOptions CmpV selected=data.idcmpref}}
@@ -37,6 +37,7 @@
         {{/if}}
       </div>  
     </div>
+    <h2>Aide a la résolution du jet</h2>
     <div class="resources grid grid-6col">
       <div class="resource flex-group-center">
         Attr. :<br>

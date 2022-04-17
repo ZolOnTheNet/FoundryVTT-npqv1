@@ -3,7 +3,7 @@
     <img class="profile-img" src="{{item.img}}" data-edit="img" title="{{item.name}}"/>
     <div class="header-fields">
       <h1 class="charname"><input name="name" type="text" value="{{item.name}}" placeholder="Name"/></h1>
-      <div class="grid grid-2col">
+      <div class="grid grid-3col">
         <div class="resource">
           <label class="resource-label">Volume</label>
           <input type="text" name="data.volume" value="{{data.volume}}" data-dtype="Number"/>
@@ -12,32 +12,35 @@
           <label class="resource-label">Poids</label>
           <input type="text" name="data.poids" value="{{data.poids}}" data-dtype="Number"/>
         </div>
+        <div class="resource">
+          <label class="resource-label">Type d'objet</label>
+          <select name="data.typeObjet">
+            {{selectOptions TypeObjets selected=data.typeObjet}}
+          </select> 
+        </div>
+
       </div>
     </div>
   </header>
 
   {{!-- Sheet Tab Navigation --}}
   <nav class="sheet-tabs tabs" data-group="primary">
-    <a class="item" data-tab="attributes">Valeurs en monnaies</a>
-    <a class="item" data-tab="description">Autres et Description</a>
+    <a class="item" data-tab="attributes">Caractéristiques</a>
+    <a class="item" data-tab="description">Description</a>
   </nav>
 
   {{!-- Sheet Body --}}
   <section class="sheet-body">
 
     {{!-- Description Tab --}}
-    <div class="tab" data-group="primary" data-tab="description">
-      <div class="resource grid grid-2col">
-        <div class="biography grid-span-2">
-          <h2>Autres Valeurs :</h2>    
-            <textarea name="data.autres" rows="4">{{data.autres}}</textarea>
-          </div>
-      </div>
-      {{!-- To render inline rolls in a TinyMCE editor, you need to pass the parent actor's (if any) roll data to the rollData prop. --}}
+    <div class="tab" data-group="primary" data-tab="description"> 
       <div class="resource grid grid-2col">
         <div class="biography grid-span-2">
           <h2>Description :</h2>    
             <textarea name="data.description" rows="4">{{data.description}}</textarea>
+          </div>
+           <h2>Utilisation :</h2>    
+            <textarea name="data.utilisation" rows="4">{{data.utilisation}}</textarea>
           </div>
       </div>
     </div>
@@ -45,10 +48,41 @@
     {{!-- Attributes Tab --}}
     <div class="tab attributes" data-group="primary" data-tab="attributes">
       {{!-- As you add new fields, add them in here! --}}
-      <div class="resource">
-        <label class="resource-label">Roll Formula</label>
-        <input type="text" name="data.formula" value="{{data.formula}}" data-dtype="String"/>
+      <h2>Bonus accordés à l'objet</h2>
+      <div class="resource grid grid-5col">
+        <div class="resource">
+          <label class="resource-label">Score</label>
+          <input type="text" name="data.bonus.score" value="{{data.bonus.score}}" data-dtype="Number"/>
+        </div>
+        <div class="resource">
+          <label class="resource-label">Dommages</label>
+          <input type="text" name="data.bonus.dommage" value="{{data.bonus.dommage}}" data-dtype="String"/>
+        </div>
+        <div class="resource">
+          <label class="resource-label">Pt. Init</label>
+          <input type="text" name="data.bonus.pinit" value="{{data.bonus.pinit}}" data-dtype="Number"/>
+        </div>
+        <div class="resource">
+          <label class="resource-label">Pt. de Vie</label>
+          <input type="text" name="data.bonus.PdV" value="{{data.bonus.PdV}}" data-dtype="Number"/>
+        </div>
+        <div class="resource">
+          <label class="resource-label">Pt. de Magie</label>
+          <input type="text" name="data.bonus.PdM" value="{{data.bonus.PdM}}" data-dtype="Number"/>
+        </div>
       </div>
+      <h2>Si c'est une Arme :</h2>
+      <div class="resource grid grid-3col">
+        <div class="resource">
+          <label class="resource-label">Dés d'initiative</label>
+          <input type="text" name="data.pinitDes" value="{{data.pinitDes}}" data-dtype="String"/>
+          non modifiable, <br>utiliser la formule
+        </div>
+        <div class="resource grid-span-2" >
+          <label class="resource-label">Formule d'initiative (hors défaut)</label>
+          <input type="text" name="data.initiative" value="{{data.initiative}}" data-dtype="String"/>
+          Normalement : {{data.pinitDes}} + Init Total du joueur
+        </div>
     </div>
   </section>
 </form>
