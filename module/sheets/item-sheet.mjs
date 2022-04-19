@@ -45,7 +45,7 @@ export class npqv1ItemSheet extends ItemSheet {
     if (actor) {
       context.rollData = actor.getRollData();
       let lesDomaines = actor.data.items.filter(item => item.type === "domaine");
-      let lesCmp = actor.data.items.filter(item => item.type === "competences");
+      let lesCmp = actor.data.items.filter(item => item.type === "competence");
       let CmpV = new Object();
       CmpV[""]="aucune";
       for( let dom of lesDomaines){
@@ -62,11 +62,16 @@ export class npqv1ItemSheet extends ItemSheet {
         context.NomCode = it.data.data.code ;
       }
       if(context.data.type == "arme_resum") { 
+        context.ArmesV = new Object();
+        context.ArmesV[""]="aucune";
         let lesArmes = actor.data.items.filter(item => item.type === "objet" && item.data.typeObjet != "O"); // pour l'instant je n'ai que O, C, M, L
         for(let arme of lesArmes) {
-          context.ArmeV[arme.data._id] = arme.name;
+          context.ArmesV[arme.data._id] = arme.name;
         }
-        context.ArmeV
+        if(! context.data.data.desync)  {
+          let cmp =actor.data.items.get(context.data.data.idcmpref);
+          if(cmp !== undefined) itemData.data.score = cmp.data.data.score;
+        } 
       }
       context.A1Acteur = true;
     }
@@ -85,15 +90,19 @@ export class npqv1ItemSheet extends ItemSheet {
       switch(context.data.data.typeObjet){
         case "C":
           itemData.data.pinitDes = "3D6";
+          itemData.data.EstArme = true;
           break;
         case "M":
           itemData.data.pinitDes = "2D6";
+          itemData.data.EstArme = true;
           break;
         case "L":
           itemData.data.pinitDes = "1D6";
+          itemData.data.EstArme = true;
           break;
         default :
           itemData.data.pinitDes = "";
+          itemData.data.EstArme = false;
           break;
       }
 

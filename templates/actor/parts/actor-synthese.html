@@ -1,71 +1,37 @@
 <ol class="items-list">
     <section class="main flexcol">
-        <h2>Armes</h2>
-        {{!-- "domaine": {"description": "","attributd":"for","score":15,"code":"Dom","BPro":0,"XPa":0},--}}
+        <h2>Armes et attaques</h2>
+        
         <table>
             <tr>
-                <th width="65%" text-align="left">N°-Nom [Code]</th>
+                <th width="30%" text-align="left">Réference</th>
                 <th  width="7%" text-align="center">Att.</th>
                 <th  width="7%" text-align="center">Score</th>
-                <th  width="7%" text-align="center">BPro</th>
-                <th  width="7%" text-align="center">XPa</th>
+                <th  width="14%" text-align="center">Jet Init</th>
+                <th  width="14%" text-align="center">Dégats</th>
+                <th  width="7%" text-align="center">Bris</th>
+                <th  width="7%" text-align="center">Mun.</th>
                 <th  width="7%" text-align="center">Act.</th>
             </tr>
-        {{#each domaines as |cmp key|}}
-            <tr class="item" data-item-id="{{cmp._id}}">
-                <td><b>{{key}}-{{cmp.name}}</b> [{{cmp.data.code}}]</td>
-                <td>{{cmp.data.attributd}}</td>
-                <td>{{cmp.data.score}}</td>
-                <td>{{cmp.data.BPro}}</td>
-                <td>{{cmp.data.XPa}}</td>
-                <td class="item-controls" text-align="center">
+        {{#each ArmesResum as |resu key|}}
+            <tr class="item" data-item-id="{{resu._id}}">
+                <td> <a class="rollable" data-roll-type="item">{{resu.data.NomAffiche}}</a></td>
+                <td class="align-center"> <a class="rollable" data-roll-type="itemA">{{resu.data.attributd}}</a></td>
+                <td class="align-center"> <a class="rollable" data-roll-type="itemS">{{resu.data.score}}</a></td>
+                <td class="align-center">{{resu.data.jetinit}}</td>
+                <td class="align-center">{{resu.data.degat}}</td>
+                <td class="align-center">{{resu.data.bris}}</td>
+                {{#if resu.data.AMunition}}
+                <td class="align-center">{{resu.data.munition}}</td>
+                {{else}}
+                <td class="align-center">n.a.</td>
+                {{/if}}
+                <td class="item-controls align-center" text-align="center">
                     <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
                 </td>
             </tr>
             <tr class="item" data-item-id="{{cmp._id}}">
-                <td colspan="5">
-                    <i>{{cmp.data.descRapide}}</i>
-                </td>
-                <td class="item-controls" text-align="center">
-                    <a class="item-control item-delete" title="Delete Item"><i class="fas fa-trash"></i></a>
-                </td>
-            </tr>
-        {{/each}}
-        </table>
-        <h2>Compétences</h2>
-        <table>
-            <tr>
-                <th width="50%">Nom [Code]</th>
-                <th width="10%">Spéc.</th>
-                <th width="7%">Att.</th>
-                <th width="12%">Score</th>
-                <th width="7%">BPro</th>
-                <th width="7%">XPa</th>
-                <th width="7%">Act.</th>
-           </tr>
-        {{#each competences as |cmp key|}}
-            <tr class="item" data-item-id="{{cmp._id}}">
-                <td ><b>{{key}}-{{cmp.name}}</b> [{{cmp.data.code}}]</td>
-                <td class="align-center">{{cmp.data.codeSpe}}</td>
-                <td class="align-center">{{cmp.data.attributd}}</td>
-                    {{#if cmp.data.codeSpe}}
-                        <td class="align-center" >
-                            {{cmp.data.scoreRel}} (++)
-                        </td>
-                    {{else}}
-                        <td class="align-center" span="2">
-                            {{cmp.data.scoreRel}} 
-                        </td>
-                    {{/if}}
-                </td>
-                <td class="align-center">{{cmp.data.BPro}}</td>
-                <td class="align-center">{{cmp.data.XPa}}</td>
-                <td class="item-controls align-center">
-                    <a class="item-control item-edit" title="Edit Item"><i class="fas fa-edit"></i></a>
-                </td>
-            </tr>
-            <tr class="item" data-item-id="{{cmp._id}}">
-                <td colspan="6">
+                <td colspan="7">
                     <i>{{cmp.data.descRapide}}</i>
                 </td>
                 <td class="item-controls align-center">
@@ -73,6 +39,6 @@
                 </td>
             </tr>
         {{/each}}
-        </table>
+        </table>      
       </section>
 </ol>

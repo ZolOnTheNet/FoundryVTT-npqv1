@@ -1,0 +1,72 @@
+export function simpleChatMessage(monTexte="coucou", qui=game.user){
+    let chatData = {
+        userr: game.user._id,
+        speaker: qui,
+        content : monTexte
+    };
+    ChatMessage.create(chatData);
+
+}
+
+export function SimpleLancerSousCmp(data, item, qui = game.user) {
+/**
+ * lance le dé est créer un texte d'évaluation 
+ * data : un ensemble de données type context
+ * idItemAttr : soit le code d'un attribut (<5 car) soit l'uid d'un items (typiquement uid d'un arme_resume)
+ * retourne un objet : { resultat roll, la chaine d'évaluation, score, le dé, le nom}
+ */
+
+// exemple de code 
+  //lstd[i] =r.terms[0].results[i].result;
+  let attr = data[item.data.attributd].value
+  let r = new Roll(attr);
+  let txtEval = "petit texte";
+  let scoreTot = item.data.score;
+  let desTrouve = attr;
+  let valeurBase = parseInt(attr.substring(1));
+  let txtNom = item.name;
+  r.evaluate({async :false });
+  let resultat = parseInt(r.result); // a corriger
+  if( resultat <= scoreTot/10) {
+      // réussite critique
+      txtEval = "Bravo ! <b>Réussite Critique</b> !!";
+  } else if( resultat <= scoreTot*0.4) {
+     // resusite spéciale
+     txtEval = "Pas Mal ! <b>Réussite Spéciale</b> !!";
+  } else if (resultat <= scoreTot-10) {
+    // réussite normal
+    txtEval = "Normal ! <b>Réussite Normal</b> !!";
+  } else if(resultat <= scoreTot) {
+    // juste réussit  
+    txtEval = "Ouf ! <b>Juste Réussi</b> !!";
+  } else if(resultat <= scoreTot+10) {
+      //juste raté
+      txtEval = "Aîe ! <b>juste raté</b> !!";
+  } else if(resultat <= (valeurBase - (valeurBase * 0.05))) {
+    txtEval = "Hum ! <b>Echec Normal</b> !!";
+      //echec critique
+  } else {
+    txtEval = "Trop mauvais ! <b>Echec Critique</b> !!";
+  }
+  txtEval = txtEval+'<div class="dice-roll"><div class="dice-result"><div class="dice-formula">'+item.data.attributd+': '+attr+'  pour '+   scoreTot +'</div><h4 class="dice-total">'+resultat+'</h4></div></div></div>';
+  simpleChatMessage(txtEval,qui);
+  return { "roll":r, "eval":txtEval, "score":scoreTot, "des": desTrouve, "nom":txtNom};
+}
+
+export function CmplxLancerSousCmp(data, idItem1Attr) {
+/**
+ * ouvre un formulaire pour calculer le dé et le score si Ok => étapes suivante, sinon adios
+ * lance le dé est créer un texte d'évaluation 
+ * data : un ensemble de données type context
+ * idItemAttr : soit le code d'un attribut (<5 car) soit l'uid d'un items (typiquement uid d'un arme_resume)
+ * retourne un objet : { resultat roll, la chaine d'évaluation, score, le dé, le nom}
+ */
+ let r = new Roll("d100");
+ let textEval = "petit texte";
+ let scoreTot = 65;
+ let desTrouve = "D100"; 
+ let txtNom = "cmp";
+
+ return { roll:r, eval:textEval, score:scoreTot, des:desTrouve, nom:txtNom};
+   
+}

@@ -24,28 +24,32 @@
           <select name="data.idcmpref">
             {{selectOptions CmpV selected=data.idcmpref}}
           </select> 
-        {/else}}
+        {{else}}
            Sans objet
         {{/if}}
       </div>
       <div class="resource flex-group-center">
         Desynchro des Val. :<br>
         {{#if A1Acteur}}
-        <input name="data.desync" type="text" value="{{data.desync}}" data-dtype="Number"/>
+          {{#if data.descync}}
+          <input name="data.desync" type="checkbox" checked/>
+          {{else}}
+          <input name="data.desync" type="checkbox" />
+          {{/if}}
        {{else}}
           Sans objet
         {{/if}}
       </div>  
     </div>
     <h2>Aide a la résolution du jet</h2>
-    <div class="resources grid grid-6col">
-      <div class="resource flex-group-center">
+    <div class="resources grid grid-7col">
+      <div class="resource grid-span-2">
         Attr. :<br>
         <select  name="data.attributd">
           {{selectOptions AttribV selected=data.attributd}}
         </select>
       </div>  
-      <div class="resource flex-group-center">
+      <div class="resource flex-group-left ">
         Score :<br>
         <input name="data.score" type="text" value="{{data.score}}" data-dtype="Number"/>
       </div>  
@@ -58,7 +62,7 @@
         <input name="data.degat" type="text" value="{{data.degat}}" />
       </div>  
       <div class="resource flex-group-center">
-        Résitance :<br>
+        Résist. :<br>
         <input name="data.resistance" type="text" value="{{data.resistance}}" data-dtype="Number"/>
       </div>  
       <div class="resource flex-group-center">

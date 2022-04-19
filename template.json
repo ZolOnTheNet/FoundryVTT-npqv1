@@ -133,8 +133,8 @@
       "pinitDes": "",
       "initiative": "",
       "dommage":"",
-      "bris":"",
-      "resistance":"",
+      "bris":-1,
+      "resistance":0,
       "bonus":{
         "score":0,
         "dommage":"+0",
@@ -237,7 +237,13 @@
       "degat":"1D10",
       "special":"",
       "bris":5,
-      "munitions":-1
+      "munitions":-1,
+      "BPro" : {
+        "total":0,
+        "libre":0,
+        "Init":0,
+        "Dom":0
+      }
     }
   }
 }

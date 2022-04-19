@@ -13,7 +13,7 @@
             </tr>
         {{#each domaines as |cmp key|}}
             <tr class="item" data-item-id="{{cmp._id}}">
-                <td><b>{{key}}-{{cmp.name}}</b> [{{cmp.data.code}}]</td>
+                <td> <a class="rollable" data-roll-type="item"><b>{{key}}-{{cmp.name}}</b> [{{cmp.data.code}}]</a></td>
                 <td>{{cmp.data.attributd}}</td>
                 <td>{{cmp.data.score}}</td>
                 <td>{{cmp.data.BPro}}</td>
@@ -45,7 +45,7 @@
            </tr>
         {{#each competences as |cmp key|}}
             <tr class="item" data-item-id="{{cmp._id}}">
-                <td ><b>{{key}}-{{cmp.name}}</b> [{{cmp.data.code}}]</td>
+                <td > <a class="rollable" data-roll-type="item"><b>{{key}}-{{cmp.name}}</b> [{{cmp.data.code}}]</a></td>
                 <td class="align-center">{{cmp.data.codeSpe}}</td>
                 <td class="align-center">{{cmp.data.attributd}}</td>
                     {{#if cmp.data.codeSpe}}

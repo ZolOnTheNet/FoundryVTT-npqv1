@@ -38,9 +38,10 @@
         <div class="biography grid-span-2">
           <h2>Description :</h2>    
             <textarea name="data.description" rows="4">{{data.description}}</textarea>
-          </div>
-           <h2>Utilisation :</h2>    
-            <textarea name="data.utilisation" rows="4">{{data.utilisation}}</textarea>
+      </div>
+        <div class="biography grid-span-2">
+            <h2>Utilisation :</h2>    
+              <textarea name="data.utilisation" rows="4">{{data.utilisation}}</textarea>
           </div>
       </div>
     </div>
@@ -71,7 +72,8 @@
           <input type="text" name="data.bonus.PdM" value="{{data.bonus.PdM}}" data-dtype="Number"/>
         </div>
       </div>
-      <h2>Si c'est une Arme :</h2>
+      {{#if data.EstArme}}
+      <h2>Carractéristique de l'Arme :</h2>
       <div class="resource grid grid-3col">
         <div class="resource">
           <label class="resource-label">Dés d'initiative</label>
@@ -84,5 +86,21 @@
           Normalement : {{data.pinitDes}} + Init Total du joueur
         </div>
     </div>
+    <div class="resource grid grid-3col">
+      <div class="resource">
+        <label class="resource-label">Formule de Dommages</label>
+        <input type="text" name="data.dommage" value="{{data.dommage}}" data-dtype="String"/>
+         la partie "bonus" se rajoute aussi.
+      </div>
+      <div class="resource">
+        <label class="resource-label">Bris</label>
+        <input type="text" name="data.bris" value="{{data.bris}}" data-dtype="Number"/>
+      </div>
+      <div class="resource">
+        <label class="resource-label">Resitance</label>
+        <input type="text" name="data.resistance" value="{{data.resistance}}" data-dtype="Number"/>
+      </div>
+    </div>
+    {{/if}}
   </section>
 </form>
