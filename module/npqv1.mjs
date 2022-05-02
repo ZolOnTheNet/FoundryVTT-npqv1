@@ -29,6 +29,7 @@ Hooks.once('init', async function() {
    * Set an initiative formula for the system
    * @type {String}
    */
+  ///Combatant.prototype._getInitiativeFormula = _getInitiativeFormula; //pointeur sur une fonction
   CONFIG.Combat.initiative = {
   //  formula: "1d20 + @abilities.dex.mod",
     formula: "@attrder.pinit_des + @attrder.pinit_finaux ",

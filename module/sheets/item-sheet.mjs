@@ -61,7 +61,8 @@ export class npqv1ItemSheet extends ItemSheet {
         context.NomCmp = it.name ;
         context.NomCode = it.data.data.code ;
       }
-      if(context.data.type == "arme_resum") { 
+      if(context.data.type == "arme_resum") { //gestion de la désyncho ? A faire !
+        // il faut récuperer les données des armes et de la compétence
         context.ArmesV = new Object();
         context.ArmesV[""]="aucune";
         let lesArmes = actor.data.items.filter(item => item.type === "objet" && item.data.typeObjet != "O"); // pour l'instant je n'ai que O, C, M, L

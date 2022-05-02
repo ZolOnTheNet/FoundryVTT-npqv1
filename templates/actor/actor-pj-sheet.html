@@ -12,7 +12,8 @@
           <div class="resource-content flexrow flex-center flex-between">
             <input type="text" name="data.PdV.value" value="{{data.PdV.value}}" data-dtype="Number"/>
             <span> / </span>
-            <input type="text" name="data.PdV.max" value="{{data.PdV.max}}" data-dtype="Number"/>
+            <input type="text" name="data.PdVTot" value="{{data.PdVTot}}" disabled=true data-dtype="Number"/>
+            (<input type="text" name="data.PdV.max" value="{{data.PdV.max}}" data-dtype="Number"/>)
           </div>
         </div>
 
@@ -21,7 +22,8 @@
           <div class="resource-content flexrow flex-center flex-between">
             <input type="text" name="data.PdM.value" value="{{data.PdM.value}}" data-dtype="Number"/>
             <span> / </span>
-            <input type="text" name="data.PdM.max" value="{{data.PdM.max}}" data-dtype="Number"/>
+            <input type="text" name="data.PdMTot" value="{{data.PdMTot}}" disabled=true data-dtype="Number"/>
+            (<input type="text" name="data.PdM.max" value="{{data.PdM.max}}" data-dtype="Number"/>)
           </div>
         </div>
 
@@ -52,6 +54,7 @@
   {{!-- Sheet Tab Navigation --}}
   <nav class="sheet-tabs tabs" data-group="primary">
     {{!-- Default tab is specified in actor-sheet.mjs --}}
+    <a class="item" data-tab="bibiography">Bibio.</a>
     <a class="item" data-tab="features">Principale</a>
     <a class="item" data-tab="synthese">synthese</a>
     <a class="item" data-tab="competences">Dom. et Cmp.</a>
@@ -65,10 +68,13 @@
   <section class="sheet-body">
 
     {{!-- Owned Features Tab --}}
+    <div class="tab features" data-group="primary" data-tab="bibiography">
+      {{>"systems/npqv1/templates/actor/parts/actor-bibiographie.html"}}  
+    </div>
+
     <div class="tab features" data-group="primary" data-tab="features">
       <section class="grid grid-3col">
         <aside class="sidebar">
-
           <div class="abilities flexcol">
             {{#each data.attributs as |attrib key|}}
             <div class="attrib flexrow flex-group-center">
@@ -87,12 +93,27 @@
           <div class="attribd flexrow flex-group-center">
             <label for="attribd.value" class="resource-label rollable flexlarge align-left" data-roll="" data-label="{{attribd.abrv}}">{{attribd.abrv}}</label>
             <input type="text" name="attribd.value" value="{{attribd.value}}" data-dtype="Number"/>
-            <span class="attrib-mod rollable" data-roll="{{attribd.value}} data-label="{{attrib}}">{{attribd.value}}</span>
+            <span class="attrib-mod rollable" data-roll="{{attribd.value}}" data-label="{{attrib}}">{{attribd.value}}</span>
           </div>
           {{/each}}        
         </section>
-        <section class="biography flexcol">
-          {{editor content=data.biography target="data.biography" rollData=rollData button=true owner=owner editable=editable}}    
+        <section class="Bonus flexcol">
+          Somme des bonus
+          <div class="attribd flexrow flex-group-left">
+            score:{{bonus.score}}
+          </div>
+          <div class="attribd flexrow flex-group-left">
+            dommage:{{bonus.dommage}}
+          </div>
+          <div class="attribd flexrow flex-group-left">
+            pinit:{{bonus.pinit}}
+          </div>
+          <div class="attribd flexrow flex-group-left">
+            PdV:{{bonus.PdV}}
+          </div>
+          <div class="attribd flexrow flex-group-left">
+            PdM:{{bonus.PdM}}
+          </div>
         </section>
       </section>
     </div>

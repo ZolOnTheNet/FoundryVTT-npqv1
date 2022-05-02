@@ -8,6 +8,7 @@
 
     // Actor partials.
    // "systems/npqv1/templates/actor/parts/actor-features.html",
+   "systems/npqv1/templates/actor/parts/actor-bibiographie.html",
     "systems/npqv1/templates/actor/parts/actor-synthese.html",
     "systems/npqv1/templates/actor/parts/actor-items.html",
     "systems/npqv1/templates/actor/parts/actor-sorts.html",

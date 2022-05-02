@@ -1,0 +1,30 @@
+<form>
+  <div class="flexrow">
+    <div class="flexcol">
+      <h3>
+        Jet  {{attrbName}} modifiable
+      </h3>
+
+      <button data-preset="cranMoins" type="button">
+        1 cran de moins
+      </button>
+
+      <button data-preset="cranPlus" type="button">
+        1 cran de plus
+      </button>
+    </div>
+
+    <div class="flexcol">
+      <label>
+        Score
+        <input type='text' name='score' value="{{score}}" />
+      </label>
+
+      <label>
+        Dés
+        <select  name="des">
+            {{selectOptions LstDes selected=des}}
+          </select></label>
+    </div>
+  </div>
+</form>

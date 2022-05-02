@@ -68,7 +68,7 @@
             "abrv":"dom. Init."
           },
           "pinit_base":{
-            "value": "3",
+            "value": 3,
             "label":"Points d'Init de base",
             "abrv":"PInitBase"
           },
@@ -135,6 +135,7 @@
       "dommage":"",
       "bris":-1,
       "resistance":0,
+      "actif":false,
       "bonus":{
         "score":0,
         "dommage":"+0",

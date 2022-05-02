@@ -36,10 +36,10 @@ export class npqv1Item extends Item {
     // Initialize chat data.
     const speaker = ChatMessage.getSpeaker({ actor: this.actor });
     const rollMode = game.settings.get('core', 'rollMode');
-    const label = `[${item.type}] ${item.name}`;
-
-    const rollData = this.getRollData();
-    let obj = utils.SimpleLancerSousCmp(rollData, item, speaker );
+    //const label = `[${item.type}] ${item.name}`;
+    const actor = (this.actor)? this.actor : null;
+    //const rollData = this.getRollData();
+    let obj = utils.SimpleLancerSousCmp(actor, item, speaker );
     // cas normal : compétence.Score, dés de attribut  : voir => SimpleLancerSousCmp
     
     // If there's no roll data, send a chat message.

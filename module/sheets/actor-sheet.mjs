@@ -1,5 +1,6 @@
 import {onManageActiveEffect, prepareActiveEffectCategories} from "../helpers/effects.mjs";
-
+import  * as utils from "../utils.mjs";
+import {simpleDialogue, testFruit, promptForLancer}  from "../dialogues.js";
 /**
  * Extend the basic ActorSheet with some very simple modifications
  * @extends {ActorSheet}
@@ -95,6 +96,8 @@ export class npqv1ActorSheet extends ActorSheet {
     const competences = [];
     const secrets = [];
     const ArmesResum = [];
+    const bourses = [];
+    // const bonus = {"score":0,"dommage":"","pinit":0,"PdM":0,"PdV":0};
     const spells = {
       1: [],
       2: [],
@@ -103,22 +106,38 @@ export class npqv1ActorSheet extends ActorSheet {
       5: []
     };
 
+    let bib = context.data.biography.split('</p>');
+    if (Array.isArray(bib)){
+      if (bib.length < 6){
+        //context.data.biography += "<br>&nbsp<br><br><br>";
+        context.data.biography += "<p><br></p><p><br></p><p><br></p><p><br></p><p><br></p>";
+      }
+    }
+
     // Iterate through items, allocating to containers
     for (let i of context.items) {
       i.img = i.img || DEFAULT_TOKEN;
       // Append to gear.
       if (i.type === 'objet') {
-        i.data.descRapide = (i.data.description+".").substring(0,i.data.description.indexOf("."));
-        i.data.utiRapide = (i.data.utilisation+".").substring(0,i.data.utilisation.indexOf("."));
+        i.data.descRapide = i.data.description.substring(0,(i.data.description+".").indexOf("."));
+        i.data.utiRapide  = i.data.utilisation.substring(0,(i.data.utilisation+".").indexOf("."));
+        i.data.isArme = !(i.data.typeObjet=='O'); // c'est une arme si c'est pas un objet de type O
+        // if(i.data.actif) {
+        //   bonus.score += (i.data.bonus.score != 0)?(i.data.bonus.score):0;
+        //   bonus.dommage += (i.data.bonus.dommage != "")?"+("+i.data.bonus.dommage+")":"";
+        //   bonus.pinit += (i.data.bonus.pinit != 0)?i.data.bonus.pinit:0;
+        //   bonus.PdM  += (i.data.bonus.PdM)?i.data.bonus.PdM:0;
+        //   bonus.PdV  += (i.data.bonus.PdV)?i.data.bonus.PdV:0;
+        // }
         gear.push(i);
       }
       else if (i.type === 'domaine') {
         // on lui ajoute le résumé (pour l'instant jusqu'au premier point)
-        i.data.descRapide = (i.data.description+".").substring(0,i.data.description.indexOf("."));
+        i.data.descRapide = (i.data.description).substring(0,(i.data.description+".").indexOf("."));
         domaines.push(i);
       } 
       else if (i.type === 'competence'){
-        i.data.descRapide = (i.data.description+".").substring(0,i.data.description.indexOf("."));
+        i.data.descRapide = (i.data.description+".").substring(0,(i.data.description+".").indexOf("."));
         if(i.data.idLien != ""){
           // calcul si spécialisation
           let it = context.actor.items.get(i.data.idLien);
@@ -126,7 +145,6 @@ export class npqv1ActorSheet extends ActorSheet {
         }else {
           i.data.scoreRel = i.data.score;
         }
-        
         competences.push(i);
       }
       // Append to features.
@@ -141,7 +159,7 @@ export class npqv1ActorSheet extends ActorSheet {
       }
       // ajouter dans les résumés des armes
       else if( i.type === 'arme_resum'){
-        i.data.descRapide = (i.data.special+".").substring(0,i.data.special.indexOf('.'));
+        i.data.descRapide = i.data.special.substring(0,(i.data.special+".").indexOf('.'));
         i.data.NomAffiche = "-non déf-";
         if(i.data.desync == 0) {
           i.data.score = 0;
@@ -188,7 +206,7 @@ export class npqv1ActorSheet extends ActorSheet {
       }
       // Append to spells.
       else if (i.type === 'sort') {
-        i.data.descRapide = (i.data.description+".").substring(0,i.data.description.indexOf("."));
+        i.data.descRapide = i.data.description.substring(0,(i.data.description+".").indexOf("."));
         if(i.data.idLien != ""){
           // calcul si spécialisation
           let it = context.actor.items.get(i.data.idLien);
@@ -200,6 +218,9 @@ export class npqv1ActorSheet extends ActorSheet {
           spells[i.data.niveau].push(i);
         }
       }
+      else if (i.type === 'argent') {
+        bourses.push(i);
+      }
     }
 
     // Assign and return
@@ -210,6 +231,9 @@ export class npqv1ActorSheet extends ActorSheet {
     context.competences = competences;
     context.secrets = secrets;
     context.ArmesResum = ArmesResum;
+    context.bourses = bourses;
+    // context.bonus = bonus;
+    context.bonus = this.actor.data.data.bonus
   }
 
 
@@ -300,7 +324,50 @@ export class npqv1ActorSheet extends ActorSheet {
       if (dataset.rollType.substring(0,4) == 'item') {
         const itemId = element.closest('.item').dataset.itemId;
         const item = this.actor.items.get(itemId);
-        if (item) return item.roll();
+        if(item) {
+          if(item.type == "arme_resum") {
+               if(dataset.rollType.substring(0,5) == "itemI"){
+                 let formula = dataset.rollType.substring("ItemI=".length);
+                 let roll = new Roll(formula, this.actor.getRollData());
+                 let cm = roll.toMessage({
+                   speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+                   flavor: "<b>Jet d'init</b>",
+                   //content:"Super jet !!",
+                   rollMode: game.settings.get('core', 'rollMode'),
+                 });
+               } else if(dataset.rollType.substring(0,5) == "itemA"){
+                // utlisation de l'attribut comme reférence
+               } else if(dataset.rollType.substring(0,5) == "itemS"){
+                // utilisation du score comme référence (cela revient au même c'est un lancer complexe avec 2 val)
+                // testFruit().then((value) => {
+                //   console.log("Resulat :",value);
+                // });
+                promptForLancer(item.data.data.score,item.data.data.attributd, this.actor.data.data[item.data.data.attributd].value).then((value) => {
+                  console.log("lancer de dés ",value);
+                });
+                // testFruit().then(c => console.log("C reponse :",c)
+                // );
+               } else if(dataset.rollType.substring(0,5) == "itemD"){
+                 // jet de dommage 
+                  let formula = dataset.rollType.substring("ItemD=".length);
+                  let label = "<h2>Jet de dommage</h2> ";
+                  if(item.data.data.idarmeref != "") {
+                    let arm = this.actor.items.get(item.data.data.idarmeref)
+                    label = arm.data.name +" fait les dommages :";
+                  }
+                  label += "</h2>ayant pour dommage : ";
+                  let roll = new Roll(formula, this.actor.getRollData());
+                  let cm = roll.toMessage({
+                        speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+                        flavor: label,
+                        //content:"Super jet !!",
+                        rollMode: game.settings.get('core', 'rollMode'),
+                  });
+                  //return utils.SimpleLancerSousCmp(this.actor, item.data,ChatMessage.getSpeaker({ actor: this.actor }));
+               }
+          }
+          else return item.roll();
+        }
       }
     }
 
@@ -308,14 +375,16 @@ export class npqv1ActorSheet extends ActorSheet {
     if (dataset.roll) {
       let label = dataset.label ? `[Attribut] ${dataset.label}` : '';
       let roll = new Roll(dataset.roll, this.actor.getRollData());
-      roll.toMessage({
+      let cm = roll.toMessage({
         speaker: ChatMessage.getSpeaker({ actor: this.actor }),
         flavor: label,
-//        content:"Super jet !!",
+        //content:"Super jet !!",
         rollMode: game.settings.get('core', 'rollMode'),
       });
 //      return roll;
+      let i = 0;
     }
   }
 
 }
+
