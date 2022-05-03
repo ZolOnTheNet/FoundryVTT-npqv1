@@ -25,122 +25,6 @@ export function simpleDialogue(){
     }).render(true);
 }
 
-/**
- * Sets the form's inputs based on the selected preset.
- */
- function handleFruitPreset(event) {
-    const targetElement = event.currentTarget;
-    const presetType = targetElement.dataset?.preset;
-  
-    const formElement = $(targetElement).parents('form');
-  
-    const nameInput = formElement?.find('[name="name"]');
-    const colorInput = formElement?.find('[name="color"]');
-  
-    if (!presetType || !nameInput || !colorInput) {
-      return;
-    }
-  
-    switch (presetType) {
-      case 'apple':
-        nameInput.val('Apple');
-        colorInput.val('#ff0000');
-        break;
-  
-      case 'banana':
-        nameInput.val('Banana');
-        colorInput.val('#ffff00');
-        break;
-  
-      case 'orange':
-        nameInput.val('Orange');
-        colorInput.val('#ff7700');
-        break;
-  
-      default:
-        throw new Error(`Unknown preset: ${presetType}`);
-        break;
-    }
-  }
-  
-  /**
-   * Verify that all expected formData fields have values.
-   */
-  function verifyFruitInputs(formData) {
-    if (!formData?.name) {
-      throw new Error('Name is required');
-    }
-  
-    if (!formData?.color) {
-      throw new Error('Color is required');
-    }
-  }
-  
-  /**
-   * Prompt the user for traits they wish the created fruit to have.
-   */
-   async function  promptForFruitTraits() {
-    const htmlContent = await renderTemplate('systems/npqv1/templates/dialogue/handlebarsTemplate.hbs');
-  
-    return new Promise((resolve, reject) => {
-      const dialog = new Dialog({
-        title: "Fruit Traits",
-        content: htmlContent,
-        buttons: {
-          submit: {
-            label: "Create",
-            icon: '<i class="fas fa-apple-alt"></i>',
-            callback: (html) => {
-              const formData = new FormDataExtended(html[0].querySelector('form'))
-                .toObject();
-  
-              verifyFruitInputs(formData);
-  
-              resolve(formData);
-            },
-          },
-          skip: {
-            label: "Skip",
-            callback: () => resolve(null),
-          },
-          cancel: {
-            label: "Cancel",
-            callback: () => reject('User canceled.'),
-          },
-        },
-        render: (html) => {
-          html.on('click', 'button[data-preset]', handleFruitPreset);
-        },
-        close: () => {
-          reject('User closed dialog without making a selection.');
-        },
-      });
-  
-      dialog.render(true);
-    });
-  }
-
-export function testFruit(){
-  return new Promise(resolve => {
-    try {
-      // voir https://foundryvtt.wiki/en/development/api/dialog
-      // const fruitTraits = await promptForFruitTraits(); // c'est cette ligne !
-      const fruitTraits = promptForFruitTraits().then();
-    
-       if (!fruitTraits) {
-         //console.warn('User skipped fruit creation.')
-         resolve("Utilisateur a sauté l'étape") ;
-       } else {
-         //console.log(fruitTraits); // logs the form output
-         resolve(fruitTraits);
-       }
-    } catch(error) {
-      //console.error(error);
-      resolve("ERROR");
-    }
-  });
-
-  }
 
   /*** mon propre test sur les dialogue
    *  le premier problème faire passer les données voulu (dans l'apel de rendereTemplate, deuxièmle argument)
@@ -197,15 +81,20 @@ function verifSyntheseData(formData) {
   if (!formData?.des) {
     throw new Error('Dés is required');
   }
+  if (formData?.dommage) {
+    if(formData?.dommage.toUpperCase().indexOf("D") == 0)
+      throw new Error('Dommage necessite un dé');
+  } 
 }
 
 /**
  * Prompt the user the dice roll
  */
- export async function  promptForLancer(score,attribcode, deschoix) {
+ export async function  promptForLancer(score,attribcode, deschoix, dommageFormule) {
   context = {
     AttribV : { "for":"Force", "ag":"Agilité", "con":"Constitution", "p":"Présence", "ig":"Intelligence", "it":"Intuition", "v":"Volonté" },
-    LstDes : { "D300":"D300", "D250":"D250","D200":"D200","D150":"D150","D120":"D120","D100":"D100","D80":"D80","D60":"D60","D50":"D50","D40":"D40"}
+    LstDes : { "D300":"D300", "D250":"D250","D200":"D200","D150":"D150","D120":"D120","D100":"D100","D80":"D80","D60":"D60","D50":"D50","D40":"D40"},
+    dommage: dommageFormule
   };
   context.attrbName = context.AttribV[attribcode]; // normalement le nom long du code
   context.score = score;
@@ -245,3 +134,123 @@ function verifSyntheseData(formData) {
     dialog.render(true);
   });
 }
+
+// EXEMPLE A SUPPRIMER QUAND TOUT COMPRISE
+/**
+ * Sets the form's inputs based on the selected preset.
+ */
+//  function handleFruitPreset(event) {
+//   const targetElement = event.currentTarget;
+//   const presetType = targetElement.dataset?.preset;
+
+//   const formElement = $(targetElement).parents('form');
+
+//   const nameInput = formElement?.find('[name="name"]');
+//   const colorInput = formElement?.find('[name="color"]');
+
+//   if (!presetType || !nameInput || !colorInput) {
+//     return;
+//   }
+
+//   switch (presetType) {
+//     case 'apple':
+//       nameInput.val('Apple');
+//       colorInput.val('#ff0000');
+//       break;
+
+//     case 'banana':
+//       nameInput.val('Banana');
+//       colorInput.val('#ffff00');
+//       break;
+
+//     case 'orange':
+//       nameInput.val('Orange');
+//       colorInput.val('#ff7700');
+//       break;
+
+//     default:
+//       throw new Error(`Unknown preset: ${presetType}`);
+//       break;
+//   }
+// }
+
+/**
+ * Verify that all expected formData fields have values.
+ */
+// function verifyFruitInputs(formData) {
+//   if (!formData?.name) {
+//     throw new Error('Name is required');
+//   }
+
+//   if (!formData?.color) {
+//     throw new Error('Color is required');
+//   }
+// }
+
+/**
+ * Prompt the user for traits they wish the created fruit to have.
+ */
+/*
+ async function  promptForFruitTraits() {
+  const htmlContent = await renderTemplate('systems/npqv1/templates/dialogue/handlebarsTemplate.hbs');
+
+  return new Promise((resolve, reject) => {
+    const dialog = new Dialog({
+      title: "Fruit Traits",
+      content: htmlContent,
+      buttons: {
+        submit: {
+          label: "Create",
+          icon: '<i class="fas fa-apple-alt"></i>',
+          callback: (html) => {
+            const formData = new FormDataExtended(html[0].querySelector('form'))
+              .toObject();
+
+            verifyFruitInputs(formData);
+
+            resolve(formData);
+          },
+        },
+        skip: {
+          label: "Skip",
+          callback: () => resolve(null),
+        },
+        cancel: {
+          label: "Cancel",
+          callback: () => reject('User canceled.'),
+        },
+      },
+      render: (html) => {
+        html.on('click', 'button[data-preset]', handleFruitPreset);
+      },
+      close: () => {
+        reject('User closed dialog without making a selection.');
+      },
+    });
+
+    dialog.render(true);
+  });
+}
+
+export function testFruit(){
+return new Promise(resolve => {
+  try {
+    // voir https://foundryvtt.wiki/en/development/api/dialog
+    // const fruitTraits = await promptForFruitTraits(); // c'est cette ligne !
+    const fruitTraits = promptForFruitTraits().then();
+  
+     if (!fruitTraits) {
+       //console.warn('User skipped fruit creation.')
+       resolve("Utilisateur a sauté l'étape") ;
+     } else {
+       //console.log(fruitTraits); // logs the form output
+       resolve(fruitTraits);
+     }
+  } catch(error) {
+    //console.error(error);
+    resolve("ERROR");
+  }
+});
+
+}
+*/

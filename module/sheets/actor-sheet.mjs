@@ -1,6 +1,7 @@
 import {onManageActiveEffect, prepareActiveEffectCategories} from "../helpers/effects.mjs";
 import  * as utils from "../utils.mjs";
-import {simpleDialogue, testFruit, promptForLancer}  from "../dialogues.js";
+//import {simpleDialogue, testFruit, promptForLancer}  from "../dialogues.js";
+import {promptForLancer}  from "../dialogues.js";
 /**
  * Extend the basic ActorSheet with some very simple modifications
  * @extends {ActorSheet}
@@ -338,15 +339,11 @@ export class npqv1ActorSheet extends ActorSheet {
                } else if(dataset.rollType.substring(0,5) == "itemA"){
                 // utlisation de l'attribut comme reférence
                } else if(dataset.rollType.substring(0,5) == "itemS"){
-                // utilisation du score comme référence (cela revient au même c'est un lancer complexe avec 2 val)
-                // testFruit().then((value) => {
-                //   console.log("Resulat :",value);
-                // });
-                promptForLancer(item.data.data.score,item.data.data.attributd, this.actor.data.data[item.data.data.attributd].value).then((value) => {
+                  promptForLancer(item.data.data.score,item.data.data.attributd, this.actor.data.data[item.data.data.attributd].value, 
+                    item.data.data.degat).then(value => {
                   console.log("lancer de dés ",value);
+                  console.log("acteur ",this.actor);
                 });
-                // testFruit().then(c => console.log("C reponse :",c)
-                // );
                } else if(dataset.rollType.substring(0,5) == "itemD"){
                  // jet de dommage 
                   let formula = dataset.rollType.substring("ItemD=".length);
