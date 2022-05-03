@@ -1,0 +1,2 @@
+pour la formule en v2
+/r 10d6x6cs>=4df=1 (relance les 6, supprime les 1 comme negatif, tout ce qui est au dessus de 3 est une réussite)

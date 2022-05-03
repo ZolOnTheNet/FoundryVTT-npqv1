@@ -10,7 +10,7 @@ export class npqv1ItemSheet extends ItemSheet {
       classes: ["npqv1", "sheet", "item"],
       width: 520,
       height: 480,
-      tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "description" }]
+      tabs: [{ navSelector: ".sheet-tabs", contentSelector: ".sheet-body", initial: "attributes" }]
     });
   }
 
@@ -45,7 +45,7 @@ export class npqv1ItemSheet extends ItemSheet {
     if (actor) {
       context.rollData = actor.getRollData();
       let lesDomaines = actor.data.items.filter(item => item.type === "domaine");
-      let lesCmp = actor.data.items.filter(item => item.type === "competences");
+      let lesCmp = actor.data.items.filter(item => item.type === "competence");
       let CmpV = new Object();
       CmpV[""]="aucune";
       for( let dom of lesDomaines){
@@ -61,13 +61,59 @@ export class npqv1ItemSheet extends ItemSheet {
         context.NomCmp = it.name ;
         context.NomCode = it.data.data.code ;
       }
+      if(context.data.type == "arme_resum") { //gestion de la désyncho ? A faire !
+        // il faut récuperer les données des armes et de la compétence
+        context.ArmesV = new Object();
+        context.ArmesV[""]="aucune";
+        let lesArmes = actor.data.items.filter(item => item.type === "objet" && item.data.typeObjet != "O"); // pour l'instant je n'ai que O, C, M, L
+        for(let arme of lesArmes) {
+          context.ArmesV[arme.data._id] = arme.name;
+        }
+        if(! context.data.data.desync)  {
+          let cmp =actor.data.items.get(context.data.data.idcmpref);
+          if(cmp !== undefined) itemData.data.score = cmp.data.data.score;
+        } 
+      }
       context.A1Acteur = true;
     }
 
+/*    if(context.data.type == "secret") { // utilise editor
+      if(itemData.data.description == "") itemData.data.description= "initialiser<br> et 1<br> et 2<br>et 3<br>";
+      for(let i = 1; i < itemData.data.niveauMax; i++ ) {
+        if(itemData.data["niv"+i].description == "") itemData.data["niv"+i].description= "initialiser<br> et 1<br> et 2<br>et 3<br>";  
+        if(itemData.data["niv"+i].effet == "") itemData.data["niv"+i].effet= "initialiser<br> et 1<br> et 2<br>et 3<br>";  
+      }
+    }
+    */
     // Add the actor's data to context.data for easier access, as well as flags.
+    if(context.data.type == "objet") {
+      context.TypeObjets = { "O":"Objet","C":"Arme Courte", "M":"Arme Moyenne","L":"Arme Longue" };
+      switch(context.data.data.typeObjet){
+        case "C":
+          itemData.data.pinitDes = "3D6";
+          itemData.data.EstArme = true;
+          break;
+        case "M":
+          itemData.data.pinitDes = "2D6";
+          itemData.data.EstArme = true;
+          break;
+        case "L":
+          itemData.data.pinitDes = "1D6";
+          itemData.data.EstArme = true;
+          break;
+        default :
+          itemData.data.pinitDes = "";
+          itemData.data.EstArme = false;
+          break;
+      }
+
+    } 
+
+    // attention modification du degrée de data.. !
     context.data = itemData.data;
     context.flags = itemData.flags;
     context.AttribV = { "for":"Force", "ag":"Agilité", "con":"Constitution", "p":"Présence", "ig":"Intelligence", "it":"Intuition", "v":"Volonté" };
+
 //    data.TypeValue = persodata.type; 
     return context;
   }

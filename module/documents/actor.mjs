@@ -47,12 +47,21 @@ export class npqv1Actor extends Actor {
 
     // Make modifications to data here. For example:
     const data = actorData.data;
-
-    // Loop through ability scores, and add their modifiers to our sheet output.
-    //for (let [key, ability] of Object.entries(data.attributs)) {
-      // Calculate the modifier using d20 rules.
-    //  ability.mod = Math.floor((ability.value - 10) / 2);
-    //}
+    const bonus = {"score":0,"dommage":"","pinit":0,"PdM":0,"PdV":0};
+    // mettre ici les bonus !
+    const bonusLst = actorData.items.filter(item => item.type === "objet" && item.data.data.actif==true);
+    for(let i of bonusLst){
+      bonus.score += (i.data.data.bonus.score != 0)?(i.data.data.bonus.score):0;
+      bonus.dommage += (i.data.data.bonus.dommage != "")?"+("+i.data.data.bonus.dommage+")":"";
+      bonus.pinit += (i.data.data.bonus.pinit != 0)?i.data.data.bonus.pinit:0;
+      bonus.PdM  += (i.data.data.bonus.PdM)?i.data.data.bonus.PdM:0;
+      bonus.PdV  += (i.data.data.bonus.PdV)?i.data.data.bonus.PdV:0;
+    }
+    data.PdMTot = data.PdM.max+bonus.PdM;
+    data.PdVTot = data.PdV.max+bonus.PdV;
+    if(typeof data.attrder.pinit_base.value === 'string')data.attrder.pinit_base.value = parseInt(data.attrder.pinit_base.value,10)
+    data.attrder.pinit_finaux.value = data.attrder.pinit_base.value+bonus.pinit;
+    data.bonus = bonus;
   }
 
   /**

@@ -68,7 +68,7 @@
             "abrv":"dom. Init."
           },
           "pinit_base":{
-            "value": "3",
+            "value": 3,
             "label":"Points d'Init de base",
             "abrv":"PInitBase"
           },
@@ -125,18 +125,25 @@
     "types": ["objet", "domaine", "sort", "competence", "avantage","ethnie", "secret","argent", "arme_resum"],
     "objet": {
       "description": "",
-      "quantity": 1,
-      "weight": 0,
-      "typeArme":"M",
-      "pinitDes": "2d6",
-      "initiative": "2d6 + @pinit_finaux",
+      "utilisation": "",
+      "quantite": 1,
+      "poids": 0,
+      "volume" : 0,
+      "typeObjet":"O",
+      "pinitDes": "",
+      "initiative": "",
+      "dommage":"",
+      "bris":-1,
+      "resistance":0,
+      "actif":false,
       "bonus":{
         "score":0,
-        "domage":"+0",
+        "dommage":"+0",
         "pinit":0,
         "PdM":0,
         "PdV":0
-      }
+      },
+      "special":""
     },
     "domaine": {
       "description": "Petit texte de présentation du domaine. Il est en format simple pour être mis sans difficulté en dessous de la ligne sur la feuille de joueur (ou de PNJ). La description rapide s'arrête au premier point, veuillez garder a peu près cette largeur pour ne faire qu'une ligne.",
@@ -157,11 +164,14 @@
       "XPa":0
     },
     "sort": {
+      "codeSpe":"",
+      "idLien":"",
       "description": "Petit texte de présentation du sortilège, pour être mise en dessous de la ligne sur la feuille de joueur (ou de PNJ). La description rapide s'arrête au premier point, veuillez garder a peu près cette largeur pour ne faire qu'une ligne.",
       "niveau": 1,
       "coutMagie":1,
-      "nomSort":"fleche",
-      "effet":""
+      "effet":"",
+      "score":10,
+      "attributd":"ig"
     },
     "avantage":{
       "description": "Petit texte de présentation de l'avantage ou désavantage. Pour être mise en dessous de la ligne sur la feuille de joueur (ou de PNJ). La description rapide s'arrête au premier point, veuillez garder a peu près cette largeur pour ne faire qu'une ligne.",
@@ -176,10 +186,9 @@
       "abrv":"gent"
     },
     "secret":{
-      "description": "",
-      "nom":"Position sociale",
       "nomGene":"Position sociale",
-      "niveau":1,
+      "description": "",
+      "niveau":0,
       "niveauMax":5,
       "niv1": {
         "nom":"basse echelle",
@@ -209,24 +218,33 @@
     },
     "argent": {
       "blanc":0,
-      "demie-perle":0,
-      "demie-lune":0,
+      "demiePerle":0,
+      "demieLune":0,
       "perle":0,
       "lune":0,
       "orc":0,
       "emmeraude":0,
-      "pourpre":0
+      "pourpre":0,
+      "autres":""
     },
     "arme_resum":{
       "idarmeref":"",
       "idcmpref":"",
+      "desync":0,
       "attributd":"for",
       "score":10,
-      "pinit":0,
-      "resistance":"1",
+      "jetinit":"2D6",
+      "resistance":1,
       "degat":"1D10",
       "special":"",
-      "bris":5
+      "bris":5,
+      "munitions":-1,
+      "BPro" : {
+        "total":0,
+        "libre":0,
+        "Init":0,
+        "Dom":0
+      }
     }
   }
 }
