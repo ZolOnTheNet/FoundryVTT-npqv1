@@ -90,7 +90,7 @@ function verifSyntheseData(formData) {
 /**
  * Prompt the user the dice roll
  */
- export async function  promptForLancer(score,attribcode, deschoix, dommageFormule) {
+ export async function  promptForLancer(txtNom, score,attribcode, deschoix, dommageFormule) {
   context = {
     AttribV : { "for":"Force", "ag":"Agilité", "con":"Constitution", "p":"Présence", "ig":"Intelligence", "it":"Intuition", "v":"Volonté" },
     LstDes : { "D300":"D300", "D250":"D250","D200":"D200","D150":"D150","D120":"D120","D100":"D100","D80":"D80","D60":"D60","D50":"D50","D40":"D40"},
@@ -99,6 +99,7 @@ function verifSyntheseData(formData) {
   context.attrbName = context.AttribV[attribcode]; // normalement le nom long du code
   context.score = score;
   context.des = deschoix;
+  context.txtNom = txtNom;
   const htmlContent = await renderTemplate('systems/npqv1/templates/dialogue/jetparams.hbs', context);
 
   return new Promise((resolve, reject) => {

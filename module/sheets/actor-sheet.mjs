@@ -339,11 +339,14 @@ export class npqv1ActorSheet extends ActorSheet {
                } else if(dataset.rollType.substring(0,5) == "itemA"){
                 // utlisation de l'attribut comme reférence
                } else if(dataset.rollType.substring(0,5) == "itemS"){
-                  promptForLancer(item.data.data.score,item.data.data.attributd, this.actor.data.data[item.data.data.attributd].value, 
+                  promptForLancer(element.closest('.item').firstElementChild.innerText,item.data.data.score,item.data.data.attributd, this.actor.data.data[item.data.data.attributd].value, 
                     item.data.data.degat).then(value => {
                   console.log("lancer de dés ",value);
                   console.log("acteur ",this.actor);
-                });
+                  //jetdata = { "roll":r, "eval":txtEval, "score":scoreTot, "des": attr, "nom":txtNom, "Code":codeRet };
+                  let jetdata = utils.lancerJet(value.txtNom, value.des, value.score, value.dommage); 
+                  utils.lanceDommage(jetdata.Code, value.dommage,  ChatMessage.getSpeaker({ actor: this.actor }))    
+                }).catch(e => 0);
                } else if(dataset.rollType.substring(0,5) == "itemD"){
                  // jet de dommage 
                   let formula = dataset.rollType.substring("ItemD=".length);

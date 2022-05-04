@@ -1,10 +1,7 @@
 <form>
+  <h2>Jet de {{txtNom}} sous <b>{{attrbName}}</b></h2>
   <div class="flexrow">
     <div class="flexcol">
-      <h3>
-        Jet  {{attrbName}} modifiable
-      </h3>
-
       <button data-preset="cranMoins" type="button">
         1 cran de moins
       </button>
@@ -29,6 +26,7 @@
       <label> Dommage : 
         <input type='text' name='dommage' value="{{dommage}}" />
       </label>
+      <input type="hidden" name="txtNom" value="{{txtNom}}" />
     </div>
   </div>
 </form>
