@@ -8,9 +8,19 @@
           Score
         </div>
         <div class="flex1">
-          <input type='text' name='score' value="{{score}}" />
+          <input type='text' name='score' value="{{score}}" data-dtype="Number" />
         </div>
         <div class="flex1">
+        </div>
+    </div>
+  </div>
+  <div class="flexcol">
+      <div class="flexrow">
+        <div class="flex1">
+          Bonus/Malus
+        </div>
+        <div class="flex1">
+          <input type='text' name='bonus' value="0" data-dtype="Number" />
         </div>
         <div class="flex1">
         </div>
@@ -18,7 +28,7 @@
   </div>
   <div class="flexcol">
     <div class="flexrow">
-      <div class="flex2">
+      <div class="flex1">
         Dés
       </div>
       <div class="flex1">
@@ -27,14 +37,18 @@
         </select>
       </div>
       <div class="flex1">
-        <button data-preset="cranMoins" type="button">
-          - cran
-        </button>
-      </div>
-      <div class="flex1">
-        <button data-preset="cranPlus" type="button">
-          + cran
-        </button>
+        <div class="flexrow">
+          <div class="flex1">
+            <button data-preset="cranMoins" type="button">
+              -
+            </button>
+          </div>
+          <div class="flex1">
+            <button data-preset="cranPlus" type="button">
+              +
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   </div> 
@@ -46,8 +60,6 @@
       <div class="flex1">
         <input type='text' name='dommage' value="{{dommage}}" />
         <input type="hidden" name="txtNom" value="{{txtNom}}" />
-      </div>
-      <div class="flex1">
       </div>
       <div class="flex1">
       </div>
