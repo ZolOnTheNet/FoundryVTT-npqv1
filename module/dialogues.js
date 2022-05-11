@@ -82,7 +82,7 @@ function verifSyntheseData(formData) {
     throw new Error('Dés is required');
   }
   if (formData?.dommage) {
-    if(formData?.dommage.toUpperCase().indexOf("D") == 0)
+    if(formData?.dommage.toUpperCase().indexOf("D") == -1)
       throw new Error('Dommage necessite un dé');
   } 
 }
@@ -107,6 +107,10 @@ function verifSyntheseData(formData) {
       title: "Modificateur de lancer",
       content: htmlContent,
       buttons: {
+        cancel: {
+          label: "Cancel",
+          callback: () => reject('User canceled.'),
+        },
         submit: {
           label: "Lance...",
           icon: '<i class="fas fa-check"></i>',
@@ -118,10 +122,6 @@ function verifSyntheseData(formData) {
 
             resolve(formData);
           },
-        },
-        cancel: {
-          label: "Cancel",
-          callback: () => reject('User canceled.'),
         },
       },
       render: (html) => {

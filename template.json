@@ -132,10 +132,7 @@
       "typeObjet":"O",
       "pinitDes": "",
       "initiative": "",
-      "dommage":"",
-      "bris":-1,
-      "resistance":0,
-      "actif":false,
+      "dommarmeEnMainf":false,
       "bonus":{
         "score":0,
         "dommage":"+0",
@@ -228,6 +225,7 @@
       "autres":""
     },
     "arme_resum":{
+      "armeEnMain":false,
       "idarmeref":"",
       "idcmpref":"",
       "desync":0,

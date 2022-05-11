@@ -62,6 +62,23 @@ export class npqv1Actor extends Actor {
     if(typeof data.attrder.pinit_base.value === 'string')data.attrder.pinit_base.value = parseInt(data.attrder.pinit_base.value,10)
     data.attrder.pinit_finaux.value = data.attrder.pinit_base.value+bonus.pinit;
     data.bonus = bonus;
+    // Selection de la synthèse active (a rajouter)
+    const LstSyntheseActiv = actorData.items.filter(item => item.type === "arme_resum"  && item.data.data.armeEnMain);
+    for(let ar of LstSyntheseActiv){
+      // prendre l'init de la première arme (et enlever les autres "actif")
+      data.pinit_des = ar.data.data.jetinit; // bon c'est juste une accélération
+        //XXX
+       /*  ar.NomAffiche = "-non def-";
+        if(ar.data.data.idarmeref === undefined) ar.data.data.idarmeref ="";
+        if(ar.data.data.idarmeref !== "") {
+            const arme = actorData.items.get(ar.data.data.idarmeref);
+            // calcul sur les armes
+            ar.data.data.degat =arme.data.data.dommage;
+            if(arme.data.data.bonus.dommage !="+0") ar.degat = ar.degat + " +("+arme.data.data.bonus.dommage+")";
+            ar.data.data.jetinit = arme.data.data.pinitDes; */
+    
+        
+    }
   }
 
   /**

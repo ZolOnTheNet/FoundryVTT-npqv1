@@ -1,32 +1,59 @@
 <form>
-  <h2>Jet de {{txtNom}} sous <b>{{attrbName}}</b></h2>
-  <div class="flexrow">
-    <div class="flexcol">
-      <button data-preset="cranMoins" type="button">
-        1 cran de moins
-      </button>
-
-      <button data-preset="cranPlus" type="button">
-        1 cran de plus
-      </button>
+  <h2>Jet de {{txtNom}} sous <b>{{attrbName}}</b>
+  </h2>
+  
+  <div class="flexcol">
+      <div class="flexrow">
+        <div class="flex1">
+          Score
+        </div>
+        <div class="flex1">
+          <input type='text' name='score' value="{{score}}" />
+        </div>
+        <div class="flex1">
+        </div>
+        <div class="flex1">
+        </div>
     </div>
-
-    <div class="flexcol">
-      <label>
-        Score
-        <input type='text' name='score' value="{{score}}" />
-      </label>
-
-      <label>
+  </div>
+  <div class="flexcol">
+    <div class="flexrow">
+      <div class="flex2">
         Dés
+      </div>
+      <div class="flex1">
         <select  name="des">
             {{selectOptions LstDes selected=des}}
         </select>
-      </label>
-      <label> Dommage : 
+      </div>
+      <div class="flex1">
+        <button data-preset="cranMoins" type="button">
+          - cran
+        </button>
+      </div>
+      <div class="flex1">
+        <button data-preset="cranPlus" type="button">
+          + cran
+        </button>
+      </div>
+    </div>
+  </div> 
+  <div class="flexcol">
+    <div class="flexrow">
+      <div class="flex1">
+        Dommage : 
+      </div>
+      <div class="flex1">
         <input type='text' name='dommage' value="{{dommage}}" />
-      </label>
-      <input type="hidden" name="txtNom" value="{{txtNom}}" />
+        <input type="hidden" name="txtNom" value="{{txtNom}}" />
+      </div>
+      <div class="flex1">
+      </div>
+      <div class="flex1">
+      </div>
     </div>
   </div>
+  <div class="flexcol">
+   </div>
+  
 </form>
