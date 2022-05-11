@@ -88,7 +88,7 @@ function verifSyntheseData(formData) {
 }
 
 /**
- * Prompt the user the dice roll
+ * Prompt the user the dice roll : le texte, le score, le code de l'attribu, le dés, les dommages
  */
  export async function  promptForLancer(txtNom, score,attribcode, deschoix, dommageFormule) {
   context = {

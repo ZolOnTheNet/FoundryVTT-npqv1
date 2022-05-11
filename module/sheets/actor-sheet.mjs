@@ -344,8 +344,9 @@ export class npqv1ActorSheet extends ActorSheet {
                   console.log("lancer de dés ",value);
                   console.log("acteur ",this.actor);
                   //jetdata = { "roll":r, "eval":txtEval, "score":scoreTot, "des": attr, "nom":txtNom, "Code":codeRet };
-                  let jetdata = utils.lancerJet(value.txtNom, value.des, value.score, value.dommage); 
-                  utils.lanceDommage(jetdata.Code, value.dommage,  ChatMessage.getSpeaker({ actor: this.actor }))    
+                  let qui = ChatMessage.getSpeaker({ actor: this.actor });
+                  let jetdata = utils.lancerJet(value.txtNom, value.des, value.score + value.bonus, qui); 
+                  utils.lanceDommage(jetdata.Code, value.dommage,qui)    
                 }).catch(e => 0);
                } else if(dataset.rollType.substring(0,5) == "itemD"){
                  // jet de dommage 
@@ -374,15 +375,27 @@ export class npqv1ActorSheet extends ActorSheet {
     // Handle rolls that supply the formula directly.
     if (dataset.roll) {
       let label = dataset.label ? `[Attribut] ${dataset.label}` : '';
+      if(dataset.form === undefined) dataset.form = "no";
+      if(dataset.form == "yes") {
+        promptForLancer(label,25,dataset.label, dataset.roll,"").then(value => {
+          // on peut traiter si le score n'a pas été indiqué comme un simple lancé
+                  console.log("lancer de dés ",value);
+                  console.log("acteur ",this.actor);
+                  //jetdata = { "roll":r, "eval":txtEval, "score":scoreTot, "des": attr, "nom":txtNom, "Code":codeRet };
+                  let qui = ChatMessage.getSpeaker({ actor: this.actor });
+                  let jetdata = utils.lancerJet(value.txtNom, value.des, value.score + value.bonus, qui); 
+                  if(value.dommage != "") utils.lanceDommage(jetdata.Code, value.dommage,qui)    
+                }).catch(e => 0);
+      } else {
+      
       let roll = new Roll(dataset.roll, this.actor.getRollData());
       let cm = roll.toMessage({
         speaker: ChatMessage.getSpeaker({ actor: this.actor }),
         flavor: label,
         //content:"Super jet !!",
         rollMode: game.settings.get('core', 'rollMode'),
-      });
-//      return roll;
-      let i = 0;
+        });
+      }
     }
   }
 

@@ -47,6 +47,7 @@ export class npqv1ItemSheet extends ItemSheet {
       let lesDomaines = actor.data.items.filter(item => item.type === "domaine");
       let lesCmp = actor.data.items.filter(item => item.type === "competence");
       let CmpV = new Object();
+      // liste des compétences (domaine et cmp)
       CmpV[""]="aucune";
       for( let dom of lesDomaines){
         CmpV[dom.data._id] = dom.data.data.code;
@@ -55,6 +56,7 @@ export class npqv1ItemSheet extends ItemSheet {
         CmpV[cmp.data._id] = cmp.data.data.code;
       }
       context.CmpV = CmpV;
+      
       if(context.data.data.idLien===undefined) context.data.data.idLien = "";
       if(context.data.data.idLien !=="") {
         let it =actor.data.items.get(context.data.data.idLien);
@@ -72,6 +74,12 @@ export class npqv1ItemSheet extends ItemSheet {
         if(! context.data.data.desync)  {
           let cmp =actor.data.items.get(context.data.data.idcmpref);
           if(cmp !== undefined) itemData.data.score = cmp.data.data.score;
+          let arme = actor.data.items.get(context.data.data.idarmeref);
+          if(arme !== undefined) {
+            itemData.data.degat = arme.data.data.dommage;
+            itemData.data.bris = arme.data.data.bris;
+            itemData.data.resistance = arme.data.data.resistance;
+          }
         } 
       }
       context.A1Acteur = true;
@@ -128,5 +136,7 @@ export class npqv1ItemSheet extends ItemSheet {
     if (!this.isEditable) return;
 
     // Roll handlers, click handlers, etc. would go here.
+    //html.find('.item-edit').click(
+    //  html.find('.rollable').click(this._onRoll.bind(this));
   }
 }

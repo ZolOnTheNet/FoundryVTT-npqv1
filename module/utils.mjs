@@ -89,10 +89,11 @@ export function lanceDommage(reussite, degat, qui) {
   }
 }
 
-export function lancerJet(txtNom, attr, scoreTot, dommageFormule = "") {
+export function lancerJet(txtNom, attr, scoreTot,  qui = game.user) {
   // rajouter un paramètre pour gerer le nom, il faut aussi gerer qui
   let r = new Roll(attr);
   let codeRet = 0;
+  let valeurBase = parseInt(attr.substring(1)); // on enlève D du Dxy0
   r.evaluate({async :false });
   let resultat = parseInt(r.result); // a corriger
   let txtEval = "petit texte";
@@ -106,27 +107,42 @@ export function lancerJet(txtNom, attr, scoreTot, dommageFormule = "") {
      codeRet = 6;
   } else if (resultat <= scoreTot-10) {
     // réussite normal
-    txtEval = "Normal ! <b>Réussite Normal</b> !!";
-    codeRet = 5;
+    if(resultat <= (valeurBase - (valeurBase * 0.05))) {
+      txtEval = "Normal ! <b>Réussite Normal</b> !!";
+      codeRet = 5;
+    } else {
+      txtEval = "Normal ! <b>Echec normal</b> !!";
+      codeRet = 2;
+    }
   } else if(resultat <= scoreTot) {
     // juste réussit  
-    txtEval = "Ouf ! <b>Juste Réussi</b> !!";
-    codeRet = 4;
+    if(resultat <= (valeurBase - (valeurBase * 0.05))) {
+      txtEval = "Ouf ! <b>Juste Réussi</b> !!";
+      codeRet = 4;
+    } else {
+      txtEval = "Normal ! <b>Echec normal</b> !";
+      codeRet = 2;
+    }
   } else if(resultat <= scoreTot+10) {
       //juste raté
-      txtEval = "Aîe ! <b>juste raté</b> !!";
-      codeRet = 3;
+      if(resultat <= (valeurBase - (valeurBase * 0.05))) {
+        txtEval = "Aîe ! <b>juste raté</b> !!";
+        codeRet = 3;
+      } else {
+        txtEval = "Trop mauvais ! <b>Echec Critique</b> !!";
+        codeRet = 1;
+      }
   } else if(resultat <= (valeurBase - (valeurBase * 0.05))) {
-    txtEval = "Hum ! <b>Echec Normal</b> !!";
+    txtEval = "Hum ! <b>Echec Normal</b> !";
     codeRet = 2;
   } else {
      //echec critique
-    txtEval = "Trop mauvais ! <b>Echec Critique</b> !!";
+    txtEval = "Trop mauvais ! <b>Echec Critique</b> !";
     codeRet = 1;
   }
   // tester l'echec critique ici et modifier en echec si réussit (codeRet > 3)
   txtEval = txtEval+'<div class="dice-roll"><div class="dice-result"><div class="dice-formula">Jet sous '+attr+'  pour '+   scoreTot +'</div><h4 class="dice-total">'+resultat+'</h4></div></div></div>';
-  simpleChatMessage(txtEval);
+  simpleChatMessage(txtEval,qui);
   //if(dommageFormule === undefined) dommageFormule =""; // protection contre une formule non définie
 
   return { "roll":r, "eval":txtEval, "score":scoreTot, "des": attr, "nom":txtNom, "Code":codeRet };
@@ -136,12 +152,13 @@ export function DegatMax(degat) {
   let vc = degat.toUpperCase().split("D");
   let formule = "";
   if(Array.isArray(vc)) {
-    formule = vc[0];
+    formule = "(" + vc[0];
     for(let i = 1 ; i < vc.length; i++ ) {
       if(Number.isNumeric(vc[i-1][vc[i-1].length-1]) && Number.isNumeric(vc[i][0])) {
-        formule += "*" + vc[i];
-      } else formule =+ vc[i];
+        formule += " * " + vc[i];
+      } else formule += vc[i];
     }
+    formule += ")";
   } else formule = degat;
   return formule;
 }

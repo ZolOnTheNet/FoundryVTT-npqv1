@@ -132,7 +132,6 @@
       "typeObjet":"O",
       "pinitDes": "",
       "initiative": "",
-      "dommarmeEnMainf":false,
       "bonus":{
         "score":0,
         "dommage":"+0",
@@ -196,17 +195,7 @@
         "nom":"classe ouvrière",
         "description" :"famille de travailleur",
         "effet":"2D6 sur la table de l'origine"
-      },
-      "niv3": {
-        "nom":"classe moyenne basse",
-        "description" :"famille de tecnicien",
-        "effet":"3D6 sur la table de l'origine"
-      },
-      "niv4": {
-        "nom":"classe moyenne",
-        "description" :"famille de chef ou responsable",
-        "effet":"4D6 sur la table de l'origine"
-      },
+      },"dommarmeEnMainf":false,
       "niv5": {
         "nom":"classe aisée",
         "description" :"famille d'ingénieur ou de bourgeois",
