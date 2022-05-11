@@ -3,7 +3,29 @@
 .window-app {
   font-family: "Roboto", sans-serif;
 }
+/* OG Ajout lie COF */
+.center {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
+.flxrow > * {
+  flex: 1;
+}
+.flxrow .flex1 {
+  flex: 1;
+}
+.flxrow .flex2 {
+  flex: 2;
+}
+.flxrow .flex3 {
+  flex: 3;
+}
+.flxrow .flex4 {
+  flex: 4;
+}
 .rollable:hover, .rollable:focus {
   color: #000;
   text-shadow: 0 0 10px red;

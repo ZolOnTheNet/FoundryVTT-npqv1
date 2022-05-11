@@ -1,6 +1,6 @@
 export function simpleChatMessage(monTexte="coucou", qui=game.user){
     let chatData = {
-        userr: game.user._id,
+        user: game.user._id,
         speaker: qui,
         content : monTexte
     };
@@ -51,22 +51,46 @@ export function SimpleLancerSousCmp(LActeur, item, qui = game.user) {
   //lstd[i] =r.terms[0].results[i].result;
   let attr = LActeur.data.data.attributs[item.data.attributd].value
   let scoreTot =ScoreTot(LActeur, item);
-  let desTrouve = attr;
-  let valeurBase = parseInt(attr.substring(1));
+ // let desTrouve = attr;
+ // let valeurBase = parseInt(attr.substring(1));
   let txtNom = item.name;
-  return lanceAttrib(txtNom, attr, scoreTot);
+  return lancerJet(txtNom, attr, scoreTot);
 }
 
 export function lanceDommage(reussite, degat, qui) {
+  let text = "";
   switch(reussite) {
+    case 7: // critique 2xmax dommage
+      text = "les dommages <b>sont max</b>, l'armure de la <b>cible</b> est <b>au minimum</b>.";
+      degat = DegatMax(degat);
+      break;
+    case 6: // 2 fois les dommages
+      text = "les dommages <b>sont max</b>, l'armure de la cible protège normalement";
+      degat = DegatMax(degat);
+      break;
+    case 5:
+    case 4: // cas normal
+      text = "dommages normaux";
+      break;
+    case 3:
+    case 2:
     case 1:
     default : 
-    text = "pas de dommages"
+    text = "pas de dommages";
+    degat = "";
     break;
+  }
+  if(degat != ""){ // il faut faire les dommages
+    let r = new Roll(degat);
+    r.evaluate({async :false }); 
+    let resultat = parseInt(r.result);
+    text = text+'<div class="dice-roll"><div class="dice-result"><div class="dice-formula">'+degat +'</div><h4 class="dice-total">'+resultat+'</h4></div></div></div>';
+  simpleChatMessage(text,qui); 
   }
 }
 
-function lanceAttrib(txtNom, attr, scoreTot, dommageFormule = "") {
+export function lancerJet(txtNom, attr, scoreTot, dommageFormule = "") {
+  // rajouter un paramètre pour gerer le nom, il faut aussi gerer qui
   let r = new Roll(attr);
   let codeRet = 0;
   r.evaluate({async :false });
@@ -94,14 +118,15 @@ function lanceAttrib(txtNom, attr, scoreTot, dommageFormule = "") {
       codeRet = 3;
   } else if(resultat <= (valeurBase - (valeurBase * 0.05))) {
     txtEval = "Hum ! <b>Echec Normal</b> !!";
-      //echec critique
-      codeRet = 2;
+    codeRet = 2;
   } else {
+     //echec critique
     txtEval = "Trop mauvais ! <b>Echec Critique</b> !!";
-      codeRet = 1;
+    codeRet = 1;
   }
-  txtEval = txtEval+'<div class="dice-roll"><div class="dice-result"><div class="dice-formula">'+item.data.attributd+': '+attr+'  pour '+   scoreTot +'</div><h4 class="dice-total">'+resultat+'</h4></div></div></div>';
-  simpleChatMessage(txtEval,qui);
+  // tester l'echec critique ici et modifier en echec si réussit (codeRet > 3)
+  txtEval = txtEval+'<div class="dice-roll"><div class="dice-result"><div class="dice-formula">Jet sous '+attr+'  pour '+   scoreTot +'</div><h4 class="dice-total">'+resultat+'</h4></div></div></div>';
+  simpleChatMessage(txtEval);
   //if(dommageFormule === undefined) dommageFormule =""; // protection contre une formule non définie
 
   return { "roll":r, "eval":txtEval, "score":scoreTot, "des": attr, "nom":txtNom, "Code":codeRet };

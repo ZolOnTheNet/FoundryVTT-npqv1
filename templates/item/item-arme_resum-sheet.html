@@ -7,7 +7,7 @@
   </header>
   <section class="sheet-body">
     <h2>Liaison avec un joueur</h2>
-    <div class="resources grid grid-3col">
+    <div class="resources grid grid-4col">
       <div class="resource flex-group-center">
         Ref Arme :<br>
         {{#if A1Acteur}}
@@ -29,17 +29,28 @@
         {{/if}}
       </div>
       <div class="resource flex-group-center">
-        Desynchro des Val. :<br>
+        Arme en Main. :<br>
+        {{#if A1Acteur}}
+          {{#if data.armeEnMain}}
+          <input name="data.armeEnMain" type="checkbox" checked/>
+          {{else}}
+          <input name="data.armeEnMain" type="checkbox" />
+          {{/if}}
+        {{else}}
+          Sans objet
+        {{/if}}
+      </div>  
+      <div class="resource flex-group-center">
+        Desynchro Val. :<br>
         {{#if A1Acteur}}
           {{#if data.desync}}
           <input name="data.desync" type="checkbox" checked/>
           {{else}}
           <input name="data.desync" type="checkbox" />
           {{/if}}
-       {{else}}
+        {{else}}
           Sans objet
-        {{/if}}
-      </div>  
+        {{/if}}     </div>  
     </div>
     <h2>Aide a la résolution du jet</h2>
     <div class="resources grid grid-7col">
