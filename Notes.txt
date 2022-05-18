@@ -1,2 +1,13 @@
 pour la formule en v2
 /r 10d6x6cs>=4df=1 (relance les 6, supprime les 1 comme negatif, tout ce qui est au dessus de 3 est une réussite)
+
+@qqchose, recherche le qqchose comme valeur du personnage selectionné.
+ex : /r 1d20 + @attrder.pinit_finaux.value
+ex : /r 1d6+@PdV.value
+si erreur : [object object] vous avez oublié un attribut (en dessous)
+
+pour la formule de l 'initiative (ici de cof)
+CONFIG.Combat.initiative = {
+            formula: "1d6x + @attributes.init.value + @stats.wis.value/100",
+            decimals: 2
+        };

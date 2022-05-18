@@ -339,7 +339,8 @@ export class npqv1ActorSheet extends ActorSheet {
                } else if(dataset.rollType.substring(0,5) == "itemA"){
                 // utlisation de l'attribut comme reférence
                } else if(dataset.rollType.substring(0,5) == "itemS"){
-                  promptForLancer(element.closest('.item').firstElementChild.innerText,item.data.data.score,item.data.data.attributd, this.actor.data.data[item.data.data.attributd].value, 
+                 // lance le dé d'init, il faut le mettre dans init
+                /*  promptForLancer(element.closest('.item').firstElementChild.innerText,item.data.data.score,item.data.data.attributd, this.actor.data.data[item.data.data.attributd].value, 
                     item.data.data.degat).then(value => {
                   console.log("lancer de dés ",value);
                   console.log("acteur ",this.actor);
@@ -348,6 +349,7 @@ export class npqv1ActorSheet extends ActorSheet {
                   let jetdata = utils.lancerJet(value.txtNom, value.des, value.score + value.bonus, qui); 
                   utils.lanceDommage(jetdata.Code, value.dommage,qui)    
                 }).catch(e => 0);
+                */
                } else if(dataset.rollType.substring(0,5) == "itemD"){
                  // jet de dommage 
                   let formula = dataset.rollType.substring("ItemD=".length);

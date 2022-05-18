@@ -75,10 +75,9 @@ export class npqv1Actor extends Actor {
             // calcul sur les armes
             ar.data.data.degat =arme.data.data.dommage;
             if(arme.data.data.bonus.dommage !="+0") ar.degat = ar.degat + " +("+arme.data.data.bonus.dommage+")";
-            ar.data.data.jetinit = arme.data.data.pinitDes; */
-    
-        
+            ar.data.data.jetinit = arme.data.data.pinitDes; */        
     }
+    
   }
 
   /**
