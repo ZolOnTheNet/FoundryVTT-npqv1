@@ -77,7 +77,8 @@ export class npqv1Actor extends Actor {
             if(arme.data.data.bonus.dommage !="+0") ar.degat = ar.degat + " +("+arme.data.data.bonus.dommage+")";
             ar.data.data.jetinit = arme.data.data.pinitDes; */        
     }
-    
+
+    if(data.attrder.initformule === undefined) data.attrder.initformule =  data.attrder.des.value +" +" + data.attrder.pinit_finaux.value
   }
 
   /**

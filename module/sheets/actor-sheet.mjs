@@ -328,7 +328,11 @@ export class npqv1ActorSheet extends ActorSheet {
         if(item) {
           if(item.type == "arme_resum") {
                if(dataset.rollType.substring(0,5) == "itemI"){
+                 // lance le dé d'init, il faut le mettre dans init
+                
                  let formula = dataset.rollType.substring("ItemI=".length);
+                 this.actor.data.data.attrder.initformule = formula + " + " + this.actor.data.data.attrder.pinit_finaux.value;
+                 /*
                  let roll = new Roll(formula, this.actor.getRollData());
                  let cm = roll.toMessage({
                    speaker: ChatMessage.getSpeaker({ actor: this.actor }),
@@ -336,11 +340,11 @@ export class npqv1ActorSheet extends ActorSheet {
                    //content:"Super jet !!",
                    rollMode: game.settings.get('core', 'rollMode'),
                  });
+                 */
                } else if(dataset.rollType.substring(0,5) == "itemA"){
                 // utlisation de l'attribut comme reférence
                } else if(dataset.rollType.substring(0,5) == "itemS"){
-                 // lance le dé d'init, il faut le mettre dans init
-                /*  promptForLancer(element.closest('.item').firstElementChild.innerText,item.data.data.score,item.data.data.attributd, this.actor.data.data[item.data.data.attributd].value, 
+                promptForLancer(element.closest('.item').firstElementChild.innerText,item.data.data.score,item.data.data.attributd, this.actor.data.data[item.data.data.attributd].value, 
                     item.data.data.degat).then(value => {
                   console.log("lancer de dés ",value);
                   console.log("acteur ",this.actor);
@@ -349,7 +353,7 @@ export class npqv1ActorSheet extends ActorSheet {
                   let jetdata = utils.lancerJet(value.txtNom, value.des, value.score + value.bonus, qui); 
                   utils.lanceDommage(jetdata.Code, value.dommage,qui)    
                 }).catch(e => 0);
-                */
+                
                } else if(dataset.rollType.substring(0,5) == "itemD"){
                  // jet de dommage 
                   let formula = dataset.rollType.substring("ItemD=".length);
