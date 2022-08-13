@@ -2,12 +2,37 @@ pour la formule en v2
 /r 10d6x6cs>=4df=1 (relance les 6, supprime les 1 comme negatif, tout ce qui est au dessus de 3 est une réussite)
 
 @qqchose, recherche le qqchose comme valeur du personnage selectionné.
+ex : alors, il saute directement à actor.data.data, en fait il regarde l'objet : _token.actor.getRollData()
+/r 1d10+ @PdV.value
+ou /r @attrder.pinit_des.value+ @attrder.pinit_finaux.value le dé est utilisable
 ex : /r 1d20 + @attrder.pinit_finaux.value
 ex : /r 1d6+@PdV.value
 si erreur : [object object] vous avez oublié un attribut (en dessous)
 
+histoire d'init : trouvé dans une macro https://www.reddit.com/r/FoundryVTT/comments/mr1ju8/macro_to_roll_for_initiative_with_disadvantage/
+let combatantId = game.combat.combatants.find(c => c.name === t.name)._id;
+        return{
+            _id: combatantId,
+            initiative: roll.total,
+        };
+    });
+    await game.combat.updateCombatant(initiatives);
 pour la formule de l 'initiative (ici de cof)
+
 CONFIG.Combat.initiative = {
             formula: "1d6x + @attributes.init.value + @stats.wis.value/100",
             decimals: 2
         };
+
+
+game.combat.combatants.find(c => c.name == "Crados").data.initiative (l'initiative de Crados)
+
+//********************************************************
+pour la formule en v2
+/r 10d6x6cs>=4df=1 (relance les 6, supprime les 1 comme negatif, tout ce qui est au dessus de 3 est une réussite)
+
+@qqchose, recherche le qqchose comme valeur du personnage selectionné.
+ex : alors, il saute directement à actor.data.data, en fait il regarde l'objet : _token.actor.getRollData()
+/r 1d10+ @PdV.value
+ou /r @attrder.pinit_des.value+ @attrder.pinit_finaux.value le dé est utilisable
+

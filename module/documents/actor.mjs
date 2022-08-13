@@ -63,10 +63,10 @@ export class npqv1Actor extends Actor {
     data.attrder.pinit_finaux.value = data.attrder.pinit_base.value+bonus.pinit;
     data.bonus = bonus;
     // Selection de la synthèse active (a rajouter)
-    const LstSyntheseActiv = actorData.items.filter(item => item.type === "arme_resum"  && item.data.data.armeEnMain);
-    for(let ar of LstSyntheseActiv){
+    //const LstSyntheseActiv = actorData.items.filter(item => item.type === "arme_resum"  && item.data.data.armeEnMain);
+    //for(let ar of LstSyntheseActiv){
       // prendre l'init de la première arme (et enlever les autres "actif")
-      data.pinit_des = ar.data.data.jetinit; // bon c'est juste une accélération
+      //data.pinit_des = ar.data.data.jetinit; // bon c'est juste une accélération
         //XXX
        /*  ar.NomAffiche = "-non def-";
         if(ar.data.data.idarmeref === undefined) ar.data.data.idarmeref ="";
@@ -76,9 +76,20 @@ export class npqv1Actor extends Actor {
             ar.data.data.degat =arme.data.data.dommage;
             if(arme.data.data.bonus.dommage !="+0") ar.degat = ar.degat + " +("+arme.data.data.bonus.dommage+")";
             ar.data.data.jetinit = arme.data.data.pinitDes; */        
+    //}
+    // Calcul initiale de l'init, normalement pas bon 
+    if(data.attrder.initformule === undefined) {
+      if(data.attrder.pinit_des.value === undefined) data.attrder.pinit_des.value = "2D";
+      if(data.attrder.pinit_finaux.value === undefined) {
+        if(data.attrder.pinit_base.value === undefined) {
+          data.attrder.pinit_finaux.value = "0" // devrait être calculé en fonction de Ag et it
+        } else {
+          data.attrder.pinit_finaux.value = data.attrder.pinit_base.value
+        }
+        
+      }
+      data.attrder.initformule =  data.attrder.pinit_des.value +" +" + data.attrder.pinit_finaux.value;
     }
-
-    if(data.attrder.initformule === undefined) data.attrder.initformule =  data.attrder.des.value +" +" + data.attrder.pinit_finaux.value
   }
 
   /**

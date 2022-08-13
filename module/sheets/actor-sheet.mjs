@@ -176,7 +176,8 @@ export class npqv1ActorSheet extends ActorSheet {
             i.data.NomAffiche = a.name;
             if(i.data.desync == 0) {
               if(a.data.data.initiative ==""){
-                i.data.jetinit = a.data.data.pinitDes + "+ (" +a.data.data.bonus.pinit +")";
+                i.data.jetinit = a.data.data.pinitDes 
+                if(a.data.data.bonus.pinit != 0 ) i.data.jetinit += "+ (" +a.data.data.bonus.pinit +")";
               } else {
                 i.data.jetinit = a.data.data.initiative; // l'initiative de l'arme modifié
               }
@@ -332,6 +333,7 @@ export class npqv1ActorSheet extends ActorSheet {
                 
                  let formula = dataset.rollType.substring("ItemI=".length);
                  this.actor.data.data.attrder.initformule = formula + " + " + this.actor.data.data.attrder.pinit_finaux.value;
+                 this.render(true);
                  /*
                  let roll = new Roll(formula, this.actor.getRollData());
                  let cm = roll.toMessage({
