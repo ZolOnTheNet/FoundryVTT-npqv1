@@ -14,15 +14,11 @@
         <td class="align-center"><a class="rollable" data-roll-type="item"><img src="{{item.img}}" title="{{item.name}}" width="24" height="24"/></a></td>
         <td class="align-left">{{item.name}}</td>
         <td class="align-center">
-        {{#if data.isArme}}
-          n.a
-        {{else}}
-          {{#if data.actif}}
+         {{#if data.actif}}
             <input name="data.actif" type="checkbox" disabled=true checked/>
           {{else}}
             <input name="data.actif" type="checkbox" disabled=true/>
           {{/if}}
-        {{/if}}
         </td>
         <td class="align-center">{{item.data.typeObjet}}</td>
         <td class="align-center">{{item.data.quantite}}</td>

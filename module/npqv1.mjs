@@ -32,8 +32,9 @@ Hooks.once('init', async function() {
   ///Combatant.prototype._getInitiativeFormula = _getInitiativeFormula; //pointeur sur une fonction
   CONFIG.Combat.initiative = {
   //  formula: "1d20 + @abilities.dex.mod",
-    formula: "@attrder.pinit_des + @attrder.pinit_finaux ",
-    decimals: 2
+    formula: "@attrder.initformule "
+    //,
+    //decimals: 2
   };
 
   // Define custom Document classes

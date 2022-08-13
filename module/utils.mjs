@@ -144,7 +144,10 @@ export function lancerJet(txtNom, attr, scoreTot,  qui = game.user) {
   txtEval = txtEval+'<div class="dice-roll"><div class="dice-result"><div class="dice-formula">Jet sous '+attr+'  pour '+   scoreTot +'</div><h4 class="dice-total">'+resultat+'</h4></div></div></div>';
   simpleChatMessage(txtEval,qui);
   //if(dommageFormule === undefined) dommageFormule =""; // protection contre une formule non définie
-
+  // ajout du calcul de marge d'effet (modulo)
+  let margeEffe = Math.floor((scoreTot-resultat)/10);
+  txtEval = "Marge effet : "+ margeEffe;
+  simpleChatMessage(txtEval,qui);
   return { "roll":r, "eval":txtEval, "score":scoreTot, "des": attr, "nom":txtNom, "Code":codeRet };
 }
 

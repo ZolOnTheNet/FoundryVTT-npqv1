@@ -8,13 +8,13 @@
       {{!-- The grid classes are defined in scss/global/_grid.scss. To use,
       use both the "grid" and "grid-Ncol" class where "N" can be any number
       from 1 to 12 and will create that number of columns.  --}}
-      <div class="resources grid grid-3col">
+      <div class="resources grid grid-4col">
 
         {{!-- "flex-group-center" is also defined in the _grid.scss file
         and it will add a small amount of padding, a border, and will
         center all of its child elements content and text. --}}
         <div class="resource flex-group-center">
-          <label for="data.health.value" class="resource-label">Health</label>
+          <label for="data.health.value" class="resource-label">Santé</label>
           <div class="resource-content flexrow flex-center flex-between">
             <input type="text" name="data.health.value" value="{{data.health.value}}" data-dtype="Number"/>
             <span> / </span>
@@ -23,7 +23,7 @@
         </div>
 
         <div class="resource flex-group-center">
-          <label for="data.power.value" class="resource-label">Power</label>
+          <label for="data.power.value" class="resource-label">Magie</label>
           <div class="resource-content flexrow flex-center flex-between">
             <input type="text" name="data.power.value" value="{{data.power.value}}" data-dtype="Number"/>
             <span> / </span>
@@ -32,25 +32,12 @@
         </div>
 
         <div class="resource flex-group-center">
-          <label for="data.attrder.chance" class="resource-label">Chance</label>
+          <label for="data.XP" class="resource-label">Init D.</label>
           <div class="resource-content flexrow flex-center flex-between">
-            <input type="text" name="data.attrder.chance" value="{{data.attrder.chance}}" data-dtype="Number"/>
-            
+            <input type="text" name="data.attrder.initformule" value="{{data.attrder.initformule}}" />
           </div>
         </div>
 
-        <div class="resource flex-group-center">
-          <label for="data.attrder.Heroisme" class="resource-label">Héroïsme</label>
-          <div class="resource-content flexrow flex-center flex-between">
-            <input type="text" name="data.attrder.Heroisme" value="{{data.attrder.Heroisme}}" data-dtype="Number"/>
-          </div>
-        </div>
-
-        <div class="resource flex-group-center">
-          <label for="data.XP" class="resource-label">XP</label>
-          <div class="resource-content flexrow flex-center flex-between">
-            <input type="text" name="data.XP" value="{{data.XP}}" data-dtype="Number"/>
-          </div>
         </div>
 
       </div>
@@ -61,6 +48,9 @@
   <nav class="sheet-tabs tabs" data-group="primary">
     {{!-- Default tab is specified in actor-sheet.mjs --}}
     <a class="item" data-tab="description">Description</a>
+    <a class="item" data-tab="features">Principale</a>
+    <a class="item" data-tab="competences">Compétences</a>
+    <a class="item" data-tab="synthese">Sythnese</a>
     <a class="item" data-tab="items">Items</a>
     <a class="item" data-tab="effects">Effects</a>
   </nav>
@@ -68,10 +58,65 @@
   {{!-- Sheet Body --}}
   <section class="sheet-body">
 
-    {{!-- Biography Tab --}}
-    <div class="tab biography" data-group="primary" data-tab="description">
-      {{!-- If you want TinyMCE editors to output inline rolls when rendered, you need to pass the actor's roll data to the rollData property. --}}
-      {{editor content=data.biography target="data.biography" rollData=rollData button=true owner=owner editable=editable}}
+    {{!-- Owned Features Tab --}}
+    <div class="tab features" data-group="primary" data-tab="description">
+      {{>"systems/npqv1/templates/actor/parts/actor-bibiographie.html"}}  
+    </div>
+    
+    <div class="tab features" data-group="primary" data-tab="features">
+      <section class="grid grid-3col">
+        <aside class="sidebar">
+          <div class="abilities flexcol">
+            {{#each data.attributs as |attrib key|}}
+            <div class="attrib flexrow flex-group-center">
+              <label for="attrib.value" class="resource-label rollable flexlarge align-left" data-roll="{{attrib.value}}" data-label="Jet de {{attrib.label}}">{{attrib.label}}</label>
+              <select name="data.attributs.{{attrib.code}}.value">
+                {{selectOptions ../LstDes selected=attrib.value}}
+              </select>  
+              <span class="attrib-mod rollable" data-roll="{{attrib.value}}" data-form="yes" data-label="Jet en {{attrib.label}}">{{attrib.abrv}}</span>
+            </div>
+            {{/each}}
+          </div>
+        </aside>
+
+        <section class="main flexcol">
+          {{#each data.attrder as |attribd key|}}
+          <div class="attribd flexrow flex-group-center">
+            <label for="attribd.value" class="resource-label rollable flexlarge align-left" data-roll="" data-label="{{attribd.abrv}}">{{attribd.abrv}}</label>
+            <input type="text" name="attribd.value" value="{{attribd.value}}" data-dtype="Number"/>
+            <span class="attrib-mod rollable" data-roll="{{attribd.value}}" data-label="{{attrib}}">{{attribd.value}}</span>
+          </div>
+          {{/each}}        
+        </section>
+        <section class="Bonus flexcol">
+          Somme des bonus
+          <div class="attribd flexrow flex-group-left">
+            score:{{bonus.score}}
+          </div>
+          <div class="attribd flexrow flex-group-left">
+            dommage:{{bonus.dommage}}
+          </div>
+          <div class="attribd flexrow flex-group-left">
+            pinit:{{bonus.pinit}}
+          </div>
+          <div class="attribd flexrow flex-group-left">
+            PdV:{{bonus.PdV}}
+          </div>
+          <div class="attribd flexrow flex-group-left">
+            PdM:{{bonus.PdM}}
+          </div>
+        </section>
+      </section>
+    </div>
+    
+    {{!-- Owned Competences, Domaines et Sortilèges Tab --}}
+    <div class="tab competences" data-group="primary" data-tab="competences">
+      {{> "systems/npqv1/templates/actor/parts/actor-competences.html"}}
+    </div>
+    
+    {{!-- Tab de Synthese --}}
+    <div class="tab items" data-group="primary" data-tab="synthese">
+       {{> "systems/npqv1/templates/actor/parts/actor-synthese.html"}}
     </div>
 
     {{!-- Owned Items Tab --}}

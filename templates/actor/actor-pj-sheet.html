@@ -6,7 +6,7 @@
     <div class="header-fields">
       <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name"/></h1>
       <h2 class="charname"><input name="data.ethnie" type="text" value="{{data.ethnie}}" placeholder="ethnie"/></h2>
-      <div class="resources grid grid-5col">
+      <div class="resources grid grid-6col">
         <div class="resource flex-group-center">
           <label for="data.PdV.value" class="resource-label">Points de Vie</label>
           <div class="resource-content flexrow flex-center flex-between">
@@ -35,7 +35,7 @@
         </div>
 
         <div class="resource flex-group-center">
-          <label for="data.chance" class="resource-label">Pts de Chance</label>
+          <label for="data.chance" class="resource-label">Pts Chance</label>
           <div class="resource-content flexrow flex-center flex-between">
             <input type="text" name="data.chance" value="{{data.chance}}" data-dtype="Number"/>
           </div>
@@ -45,6 +45,12 @@
           <label for="data.XP" class="resource-label">XP</label>
           <div class="resource-content flexrow flex-center flex-between">
             <input type="text" name="data.XP" value="{{data.XP}}" data-dtype="Number"/>
+          </div>
+        </div>
+        <div class="resource flex-group-center">
+          <label for="data.XP" class="resource-label">Init D.</label>
+          <div class="resource-content flexrow flex-center flex-between">
+            <input type="text" name="data.attrder.initformule" value="{{data.attrder.initformule}}" disabled=true/>
           </div>
         </div>
       </div>
