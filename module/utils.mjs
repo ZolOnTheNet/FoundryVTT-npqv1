@@ -91,25 +91,32 @@ export function lanceDommage(reussite, degat, qui) {
 
 export function lancerJet(txtNom, attr, scoreTot,  qui = game.user) {
   // rajouter un paramètre pour gerer le nom, il faut aussi gerer qui
+  // modif v1.24 : 4 degrée de réussite Normal, majeur, exceptionnel, critique
+  // je rajoute aussi : juste réussit, juste raté, raté et échec critique
+  //  echelle : 8 à 4 : réussite (de critque à juste) et de 3 (jsute raté) à 1 pour echec ritique
   let r = new Roll(attr);
   let codeRet = 0;
   let valeurBase = parseInt(attr.substring(1)); // on enlève D du Dxy0
   r.evaluate({async :false });
   let resultat = parseInt(r.result); // a corriger
   let txtEval = "petit texte";
-  if( resultat <= scoreTot/10) {
+  if( resultat <= (scoreTot * 0.15)) {
       // réussite critique
-      txtEval = "Bravo ! <b>Réussite Critique</b> !!";
+      txtEval = "Bravo ! <b>Réussite Critique !! </b><br>4 succès !!";
+      codeRet = 8;
+    } else if( resultat <= scoreTot*0.3) {
+      // resusite spéciale
+      txtEval = "Super ! <b>Réussite Exceptionnel</b> !! <br> 3 succès";
       codeRet = 7;
-  } else if( resultat <= scoreTot*0.4) {
-     // resusite spéciale
-     txtEval = "Pas Mal ! <b>Réussite Spéciale</b> !!";
-     codeRet = 6;
-  } else if (resultat <= scoreTot-10) {
+    } else if( resultat <= scoreTot*0.6) {
+      // resusite spéciale
+      txtEval = "Très bien ! <b>Réussite Majeur</b> !<br> 2 succès";
+      codeRet = 6;
+    } else if (resultat <= scoreTot-10) {
     // réussite normal
     if(resultat <= (valeurBase - (valeurBase * 0.05))) {
       txtEval = "Normal ! <b>Réussite Normal</b> !!";
-      codeRet = 5;
+      codeRet = 5; // XXXXXXXXXXXXXXX
     } else {
       txtEval = "Normal ! <b>Echec normal</b> !!";
       codeRet = 2;

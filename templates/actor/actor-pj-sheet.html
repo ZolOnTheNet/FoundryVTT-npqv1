@@ -5,52 +5,52 @@
     <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" height="200" width="200"/>
     <div class="header-fields">
       <h1 class="charname"><input name="name" type="text" value="{{actor.name}}" placeholder="Name"/></h1>
-      <h2 class="charname"><input name="data.ethnie" type="text" value="{{data.ethnie}}" placeholder="ethnie"/></h2>
+      <h2 class="charname"><input name="system.ethnie" type="text" value="{{system.ethnie}}" placeholder="ethnie"/></h2>
       <div class="resources grid grid-6col">
         <div class="resource flex-group-center">
-          <label for="data.PdV.value" class="resource-label">Points de Vie</label>
+          <label for="system.PdV.value" class="resource-label">Points de Vie</label>
           <div class="resource-content flexrow flex-center flex-between">
-            <input type="text" name="data.PdV.value" value="{{data.PdV.value}}" data-dtype="Number"/>
+            <input type="text" name="system.PdV.value" value="{{system.PdV.value}}" data-dtype="Number"/>
             <span> / </span>
-            <input type="text" name="data.PdVTot" value="{{data.PdVTot}}" disabled=true data-dtype="Number"/>
-            (<input type="text" name="data.PdV.max" value="{{data.PdV.max}}" data-dtype="Number"/>)
+            <input type="text" name="system.PdVTot" value="{{system.PdVTot}}" disabled=true data-dtype="Number"/>
+            (<input type="text" name="system.PdV.max" value="{{system.PdV.max}}" data-dtype="Number"/>)
           </div>
         </div>
 
         <div class="resource flex-group-center">
-          <label for="data.PdM.value" class="resource-label">Pts de Magie</label>
+          <label for="system.PdM.value" class="resource-label">Pts de Magie</label>
           <div class="resource-content flexrow flex-center flex-between">
-            <input type="text" name="data.PdM.value" value="{{data.PdM.value}}" data-dtype="Number"/>
+            <input type="text" name="system.PdM.value" value="{{system.PdM.value}}" data-dtype="Number"/>
             <span> / </span>
-            <input type="text" name="data.PdMTot" value="{{data.PdMTot}}" disabled=true data-dtype="Number"/>
-            (<input type="text" name="data.PdM.max" value="{{data.PdM.max}}" data-dtype="Number"/>)
+            <input type="text" name="system.PdMTot" value="{{system.PdMTot}}" disabled=true data-dtype="Number"/>
+            (<input type="text" name="system.PdM.max" value="{{system.PdM.max}}" data-dtype="Number"/>)
           </div>
         </div>
 
         <div class="resource flex-group-center">
-          <label for="data.Heroisme" class="resource-label">Pts de Héro</label>
+          <label for="system.Heroisme" class="resource-label">Pts de Héro</label>
           <div class="resource-content flexrow flex-center flex-between">
-            <input type="text" name="data.Heroisme" value="{{data.Heroisme}}" data-dtype="Number"/>
+            <input type="text" name="system.Heroisme" value="{{system.Heroisme}}" data-dtype="Number"/>
           </div>
         </div>
 
         <div class="resource flex-group-center">
-          <label for="data.chance" class="resource-label">Pts Chance</label>
+          <label for="system.chance" class="resource-label">Pts Chance</label>
           <div class="resource-content flexrow flex-center flex-between">
-            <input type="text" name="data.chance" value="{{data.chance}}" data-dtype="Number"/>
+            <input type="text" name="system.chance" value="{{system.chance}}" data-dtype="Number"/>
           </div>
         </div>
 
         <div class="resource flex-group-center">
-          <label for="data.XP" class="resource-label">XP</label>
+          <label for="system.XP" class="resource-label">XP</label>
           <div class="resource-content flexrow flex-center flex-between">
-            <input type="text" name="data.XP" value="{{data.XP}}" data-dtype="Number"/>
+            <input type="text" name="system.XP" value="{{system.XP}}" data-dtype="Number"/>
           </div>
         </div>
         <div class="resource flex-group-center">
-          <label for="data.XP" class="resource-label">Init D.</label>
+          <label for="system.XP" class="resource-label">Init D.</label>
           <div class="resource-content flexrow flex-center flex-between">
-            <input type="text" name="data.attrder.initformule" value="{{data.attrder.initformule}}" disabled=true/>
+            <input type="text" name="system.attrder.initformule" value="{{system.attrder.initformule}}" disabled=true/>
           </div>
         </div>
       </div>
@@ -82,10 +82,10 @@
       <section class="grid grid-3col">
         <aside class="sidebar">
           <div class="abilities flexcol">
-            {{#each data.attributs as |attrib key|}}
+            {{#each system.attributs as |attrib key|}}
             <div class="attrib flexrow flex-group-center">
               <label for="attrib.value" class="resource-label rollable flexlarge align-left" data-roll="{{attrib.value}}" data-label="Jet de {{attrib.label}}">{{attrib.label}}</label>
-              <select name="data.attributs.{{attrib.code}}.value">
+              <select name="system.attributs.{{attrib.code}}.value">
                 {{selectOptions ../LstDes selected=attrib.value}}
               </select>  
               <span class="attrib-mod rollable" data-roll="{{attrib.value}}" data-form="yes" data-label="Jet en {{attrib.label}}">{{attrib.abrv}}</span>
@@ -95,31 +95,8 @@
         </aside>
 
         <section class="main flexcol">
-          {{#each data.attrder as |attribd key|}}
-          <div class="attribd flexrow flex-group-center">
-            <label for="attribd.value" class="resource-label rollable flexlarge align-left" data-roll="" data-label="{{attribd.abrv}}">{{attribd.abrv}}</label>
-            <input type="text" name="attribd.value" value="{{attribd.value}}" data-dtype="Number"/>
-            <span class="attrib-mod rollable" data-roll="{{attribd.value}}" data-label="{{attrib}}">{{attribd.value}}</span>
-          </div>
-          {{/each}}        
         </section>
         <section class="Bonus flexcol">
-          Somme des bonus
-          <div class="attribd flexrow flex-group-left">
-            score:{{bonus.score}}
-          </div>
-          <div class="attribd flexrow flex-group-left">
-            dommage:{{bonus.dommage}}
-          </div>
-          <div class="attribd flexrow flex-group-left">
-            pinit:{{bonus.pinit}}
-          </div>
-          <div class="attribd flexrow flex-group-left">
-            PdV:{{bonus.PdV}}
-          </div>
-          <div class="attribd flexrow flex-group-left">
-            PdM:{{bonus.PdM}}
-          </div>
         </section>
       </section>
     </div>

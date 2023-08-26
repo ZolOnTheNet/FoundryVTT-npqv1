@@ -128,3 +128,9 @@ function rollItemMacro(itemName) {
   // Trigger the item roll
   return item.roll();
 }
+
+// function chatMessageLancerDes(texte, bruteDes, bruteReserve, bruteDifficulte){
+
+//   console.log('test de sortie : ', texte, bruteDes, bruteReserve, bruteDifficulte);
+
+//}

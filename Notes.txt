@@ -36,3 +36,4 @@ ex : alors, il saute directement à actor.data.data, en fait il regarde l'objet 
 /r 1d10+ @PdV.value
 ou /r @attrder.pinit_des.value+ @attrder.pinit_finaux.value le dé est utilisable
 
+trouver le selectionner regarder : canvas.tokens.controlled[0]
